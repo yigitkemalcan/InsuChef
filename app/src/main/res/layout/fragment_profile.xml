@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".profileFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/insuchef"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:background="@color/green"
+            android:gravity="center"
+            android:text="InsuChef"
+            android:textColor="#FFFFFF"
+            android:textSize="36sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/weightText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Weight"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/guideline8"
+            app:layout_constraintTop_toBottomOf="@+id/insuchef" />
+
+        <TextView
+            android:id="@+id/insulinSensivityFactor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Insulin Sensivity Factor"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/guideline8"
+            app:layout_constraintTop_toBottomOf="@+id/targetBloodSugarEdTxt" />
+
+        <TextView
+            android:id="@+id/targetBloodSugar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Target Blood Sugar"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/guideline8"
+            app:layout_constraintTop_toBottomOf="@+id/weightEdTxt" />
+
+        <TextView
+            android:id="@+id/carbohydrateRestriction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Carbohydrate Restriction"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/guideline8"
+            app:layout_constraintTop_toBottomOf="@+id/insulinSensivityFactorEdTxt" />
+
+        <Button
+            android:id="@+id/showFavorites"
+            android:layout_width="140dp"
+            android:layout_height="40dp"
+            android:background="@drawable/button"
+            android:text="Show Favorites"
+            android:layout_marginTop="10dp"
+            android:textColor="#FFFFFF"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/favorites" />
+
+        <Button
+            android:id="@+id/favorites"
+            android:layout_width="140dp"
+            android:layout_height="40dp"
+            android:background="@drawable/button"
+            android:text="Favorites"
+            android:layout_marginTop="10dp"
+            android:textColor="#FFFFFF"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button4" />
+
+        <Button
+            android:id="@+id/addFood"
+            android:layout_width="140dp"
+            android:layout_height="40dp"
+            android:background="@drawable/button"
+            android:text="Add Food"
+            android:layout_marginTop="10dp"
+            android:textColor="#FFFFFF"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/showFavorites" />
+
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="140dp"
+            android:layout_height="40dp"
+            android:background="@drawable/button"
+            android:text="Update"
+            android:layout_marginTop="10dp"
+            android:textColor="#FFFFFF"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/dinnerRestriction" />
+
+        <EditText
+            android:id="@+id/weightEdTxt"
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="e.g: 75kg"
+            android:inputType="text"
+            app:layout_constraintStart_toStartOf="@+id/guideline8"
+            app:layout_constraintTop_toBottomOf="@+id/weightText" />
+
+        <EditText
+            android:id="@+id/targetBloodSugarEdTxt"
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="e.g: 100mg/dl"
+            android:inputType="text"
+            app:layout_constraintStart_toStartOf="@+id/guideline8"
+            app:layout_constraintTop_toBottomOf="@+id/targetBloodSugar" />
+
+        <EditText
+            android:id="@+id/dinnerRestriction"
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="(Dinner)"
+            android:inputType="text"
+            app:layout_constraintStart_toStartOf="@+id/guideline8"
+            app:layout_constraintTop_toBottomOf="@+id/lunchRestriction" />
+
+        <EditText
+            android:id="@+id/insulinSensivityFactorEdTxt"
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="e.g: 100mg/dl"
+            android:inputType="text"
+            app:layout_constraintStart_toStartOf="@+id/guideline8"
+            app:layout_constraintTop_toBottomOf="@+id/insulinSensivityFactor" />
+
+        <EditText
+            android:id="@+id/breakfastRestriction"
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="(Breakfast)"
+            android:inputType="text"
+            app:layout_constraintStart_toStartOf="@+id/guideline8"
+            app:layout_constraintTop_toBottomOf="@+id/carbohydrateRestriction" />
+
+        <EditText
+            android:id="@+id/lunchRestriction"
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="(Lunch)"
+            android:inputType="text"
+            app:layout_constraintStart_toStartOf="@+id/guideline8"
+            app:layout_constraintTop_toBottomOf="@+id/breakfastRestriction" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="50dp" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+</FrameLayout>
