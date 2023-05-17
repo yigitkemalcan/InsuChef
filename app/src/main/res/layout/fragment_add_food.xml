@@ -89,7 +89,7 @@
             android:background="@drawable/button"
             android:text="Add New Food"
             android:textColor="#FFFFFF"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:textStyle="bold"
             android:layout_marginBottom="54dp"
             app:layout_constraintBottom_toBottomOf="parent"
