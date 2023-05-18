@@ -1,7 +1,7 @@
 package com.example.insuchef;
 
-import org.json.JSONException;
 
+import org.json.JSONException;
 import java.io.IOException;
 
 public class Test {
@@ -26,4 +26,3 @@ public class Test {
         System.out.println(r.getCalories((r.getFood(str2))));
     }
 }
-

@@ -2,7 +2,6 @@ package com.example.insuchef;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
@@ -16,8 +15,9 @@ public class ReadFile {
     protected static File file;
     protected static JSONArray a;
 
-    public ReadFile()throws IOException, JSONException {
+    public ReadFile() throws IOException, JSONException {
         file = new File("food.json");
+
         BufferedReader buff = new BufferedReader(new FileReader(file.getPath()));
         StringBuilder sb = new StringBuilder();
         String c;
@@ -27,6 +27,7 @@ public class ReadFile {
         }
         JSONTokener token = new JSONTokener(sb.toString());
         a = new JSONArray(token);
+
     }
 
     public JSONObject getFood(String name) throws JSONException {
@@ -50,7 +51,8 @@ public class ReadFile {
     }
 
     public double getCarb(Object obj) throws JSONException {
-        JSONArray arr = new JSONArray(((JSONObject)obj).getJSONArray("foodNutrients"));
+        JSONArray ar = ((JSONObject)obj).getJSONArray("foodNutrients");
+        JSONArray arr = new JSONArray(ar.toString());
         for(int k = 0; k < arr.length(); k++)
         {
             if(((JSONObject)arr.get(k)).getString("name").equals("Carbohydrate, by difference"))
@@ -62,7 +64,9 @@ public class ReadFile {
     }
 
     public double getProtein(Object obj) throws JSONException {
-        JSONArray arr = new JSONArray(((JSONObject)obj).getJSONArray("foodNutrients"));
+        JSONArray ar = ((JSONObject)obj).getJSONArray("foodNutrients");
+        JSONArray arr = new JSONArray(ar.toString());
+        // JSONArray arr = new JSONArray(((JSONObject)obj).getJSONArray("foodNutrients"));
         for(int k = 0; k < arr.length(); k++)
         {
             if(((JSONObject)arr.get(k)).getString("name").equals("Protein"))
@@ -74,7 +78,9 @@ public class ReadFile {
     }
 
     public double getFat(Object obj) throws JSONException {
-        JSONArray arr = new JSONArray(((JSONObject)obj).getJSONArray("foodNutrients"));
+        JSONArray ar = ((JSONObject)obj).getJSONArray("foodNutrients");
+        JSONArray arr = new JSONArray(ar.toString());
+        //JSONArray arr = new JSONArray(((JSONObject)obj).getJSONArray("foodNutrients"));
         for(int k = 0; k < arr.length(); k++)
         {
             if(((JSONObject)arr.get(k)).getString("name").equals("Total lipid (fat)"))
@@ -87,7 +93,9 @@ public class ReadFile {
 
     public double getCalories(Object obj) throws JSONException {
         double energy = 0;
-        JSONArray arr = new JSONArray(((JSONObject)obj).getJSONArray("foodNutrients"));
+        JSONArray ar = ((JSONObject)obj).getJSONArray("foodNutrients");
+        JSONArray arr = new JSONArray(ar.toString());
+        // JSONArray arr = new JSONArray(((JSONObject)obj).getJSONArray("foodNutrients"));
         for(int k = 0; k < arr.length(); k++)
         {
             if(((JSONObject)arr.get(k)).getString("name").equals("Energy (Atwater General Factors)"))

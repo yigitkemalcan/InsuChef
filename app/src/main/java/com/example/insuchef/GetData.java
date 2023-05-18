@@ -3,9 +3,9 @@ package com.example.insuchef;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.io.FileWriter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -13,7 +13,7 @@ import org.json.JSONTokener;
 
 public class GetData {
 
-    protected static PrintWriter writer;
+    protected static FileWriter writer;
     protected static BufferedReader reader;
     protected static URL url;
     protected static HttpURLConnection con;
@@ -21,7 +21,7 @@ public class GetData {
     public GetData() throws IOException, JSONException {
 
 
-        writer = new PrintWriter("food.json");
+        writer = new FileWriter("food.json");
         int offset = 1;
         JSONArray list = new JSONArray();
         JSONArray arr;
@@ -36,13 +36,13 @@ public class GetData {
             if (con.getResponseCode() ==  200) // 200 = HttpURLConnection.HTTP_OK
             {
                 reader = new BufferedReader(new InputStreamReader(url.openStream()));
-                String str = "";
+                String str1 = "";
                 String c;
                 while((c = reader.readLine()) != null)
                 {
-                    str = str + c;
+                    str1 = str1 + c;
                 }
-                JSONTokener token = new JSONTokener(str);
+                JSONTokener token = new JSONTokener(str1);
                 arr = new JSONArray(token);
                 list.put(arr);
                 offset++;
@@ -53,6 +53,7 @@ public class GetData {
             }
         }while((arr.length() == 200)); // page size = 200
         writer.write(list.toString(4));
+        writer.flush();
 
         reader.close();
         writer.close();
