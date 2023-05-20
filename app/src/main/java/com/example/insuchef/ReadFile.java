@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -13,7 +14,7 @@ import org.json.JSONTokener;
 
 public class ReadFile {
     protected static File file;
-    protected static JSONArray a;
+    protected static JSONArray array;
 
     public ReadFile() throws IOException, JSONException {
         file = new File("food.json");
@@ -26,17 +27,17 @@ public class ReadFile {
             sb.append(c);
         }
         JSONTokener token = new JSONTokener(sb.toString());
-        a = new JSONArray(token);
+        array = new JSONArray(token);
 
     }
 
     public JSONObject getFood(String name) throws JSONException {
-        JSONArray j = (JSONArray)a.get(0);
-        for(int i = 0; i < a.length(); i++)
+        JSONArray j = (JSONArray)array.get(0);
+        for(int i = 0; i < array.length(); i++)
         {
-            for(int k = 0; k < ((JSONArray) a.get(i)).length();k++)
+            for(int k = 0; k < ((JSONArray) array.get(i)).length();k++)
             {
-                j = (JSONArray) a.get(i);
+                j = (JSONArray) array.get(i);
                 if(((JSONObject)(j.get(k))).getString("description").equals(name))
                 {
                     return (JSONObject)j.get(k);
@@ -44,6 +45,21 @@ public class ReadFile {
             }
         }
         return (JSONObject)j.get(0);
+    }
+
+    public ArrayList<String> getFoodList() throws JSONException {
+        ArrayList<String> list = new ArrayList<String>();
+
+        JSONArray j = (JSONArray)array.get(0);
+        for(int i = 0; i < array.length(); i++)
+        {
+            for(int k = 0; k < ((JSONArray) array.get(i)).length();k++)
+            {
+                j = (JSONArray) array.get(i);
+                list.add(((JSONObject)(j.get(k))).getString("description"));
+            }
+        }
+        return list;
     }
 
     public String getName(Object obj) throws JSONException {
