@@ -1,9 +1,8 @@
 package com.example.insuchef;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -11,24 +10,27 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentContainerView;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
+import org.json.JSONException;
 
-import com.example.insuchef.databinding.ActivityMainBinding;
+import java.io.File;
+import java.io.IOException;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link mainFragment#newInstance} factory method to
+ * Use the {@link MainFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class mainFragment extends Fragment {
+public class MainFragment extends Fragment {
+
+    File jFile;
+    GetData get;
+
+    Bundle bundle;
+
+    MealSelectionFragment mealSelectFrag;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -41,7 +43,7 @@ public class mainFragment extends Fragment {
 
 
 
-    public mainFragment() {
+    public MainFragment() {
         // Required empty public constructor
     }
 
@@ -54,8 +56,8 @@ public class mainFragment extends Fragment {
      * @return A new instance of fragment mainFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static mainFragment newInstance(String param1, String param2) {
-        mainFragment fragment = new mainFragment();
+    public static MainFragment newInstance(String param1, String param2) {
+        MainFragment fragment = new MainFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -70,6 +72,7 @@ public class mainFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
     }
 
     @Override
@@ -77,15 +80,19 @@ public class mainFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
+
         View view = inflater.inflate(R.layout.fragment_main, container, false);
+
+        mealSelectFrag = new MealSelectionFragment();
 
         Button breakfast = view.findViewById(R.id.breakfast);
         breakfast.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.fragmentContainer, new mealSelectionFragment());
+                fragmentTransaction.replace(R.id.fragmentContainer, mealSelectFrag);
                 fragmentTransaction.commit();
 
             }
@@ -96,7 +103,7 @@ public class mainFragment extends Fragment {
             public void onClick(View v) {
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.fragmentContainer, new mealSelectionFragment());
+                fragmentTransaction.replace(R.id.fragmentContainer, mealSelectFrag);
                 fragmentTransaction.commit();
 
             }
@@ -107,7 +114,7 @@ public class mainFragment extends Fragment {
             public void onClick(View v) {
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.fragmentContainer, new mealSelectionFragment());
+                fragmentTransaction.replace(R.id.fragmentContainer, mealSelectFrag);
                 fragmentTransaction.commit();
 
             }

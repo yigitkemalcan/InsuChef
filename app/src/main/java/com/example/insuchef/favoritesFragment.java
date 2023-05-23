@@ -10,10 +10,10 @@ import android.view.ViewGroup;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link favoritesFragment#newInstance} factory method to
+ * Use the {@link FavoritesFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class favoritesFragment extends Fragment {
+public class FavoritesFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -24,7 +24,7 @@ public class favoritesFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public favoritesFragment() {
+    public FavoritesFragment() {
         // Required empty public constructor
     }
 
@@ -37,8 +37,8 @@ public class favoritesFragment extends Fragment {
      * @return A new instance of fragment favoritesFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static favoritesFragment newInstance(String param1, String param2) {
-        favoritesFragment fragment = new favoritesFragment();
+    public static FavoritesFragment newInstance(String param1, String param2) {
+        FavoritesFragment fragment = new FavoritesFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);

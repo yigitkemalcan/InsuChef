@@ -13,10 +13,10 @@ import android.widget.Button;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link instantInformationFragment#newInstance} factory method to
+ * Use the {@link InstantInformationFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class instantInformationFragment extends Fragment {
+public class InstantInformationFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -27,7 +27,7 @@ public class instantInformationFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public instantInformationFragment() {
+    public InstantInformationFragment() {
         // Required empty public constructor
     }
 
@@ -40,8 +40,8 @@ public class instantInformationFragment extends Fragment {
      * @return A new instance of fragment instantInformationFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static instantInformationFragment newInstance(String param1, String param2) {
-        instantInformationFragment fragment = new instantInformationFragment();
+    public static InstantInformationFragment newInstance(String param1, String param2) {
+        InstantInformationFragment fragment = new InstantInformationFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -69,7 +69,7 @@ public class instantInformationFragment extends Fragment {
             public void onClick(View v) {
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.fragmentContainer, new calculationFragment());
+                fragmentTransaction.replace(R.id.fragmentContainer, new CalculationFragment());
                 fragmentTransaction.commit();
             }
         });
