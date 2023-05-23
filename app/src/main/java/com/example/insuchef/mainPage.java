@@ -6,18 +6,25 @@ import androidx.fragment.app.FragmentContainerView;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
 
 import com.example.insuchef.databinding.ActivityMainBinding;
 
-public class mainPage extends AppCompatActivity {
+import org.json.JSONException;
 
+import java.io.File;
+import java.io.IOException;
+
+public class MainPage extends AppCompatActivity {
 
 
     FragmentContainerView fragmentContainer;
-    Fragment mainFragment;
+    GetData get;
+    public static FoodList foodList;
+
     ActivityMainBinding binding;
 
 
@@ -26,20 +33,36 @@ public class mainPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        replaceFragment(new mainFragment());
+
+        File jFile = new File(getFilesDir(), "food.json");
+
+        // Fetch/Parse JSON data and create static FoodList object
+        try {
+            get = new GetData(jFile);
+            get.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+
+
+        MainFragment mainFrag = new MainFragment();
+
+        replaceFragment(mainFrag);
         binding.navigation.setOnItemSelectedListener(item -> {
             if (item.getItemId() == R.id.home){
-                replaceFragment(new mainFragment());
+                replaceFragment(mainFrag);
             }
             else if (item.getItemId() == R.id.profile){
-                replaceFragment(new profileFragment());
+                replaceFragment(new ProfileFragment());
             }
             else {
-                replaceFragment(new mainFragment());
+                replaceFragment(mainFrag);
             }
             return true;
         });
-
 
 
 

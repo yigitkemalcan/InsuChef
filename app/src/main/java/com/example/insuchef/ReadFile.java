@@ -16,8 +16,9 @@ public class ReadFile {
     protected static File file;
     protected static JSONArray array;
 
-    public ReadFile() throws IOException, JSONException {
-        file = new File("food.json");
+    public ReadFile(File file) throws IOException, JSONException {
+
+        this.file = file;
 
         BufferedReader buff = new BufferedReader(new FileReader(file.getPath()));
         StringBuilder sb = new StringBuilder();

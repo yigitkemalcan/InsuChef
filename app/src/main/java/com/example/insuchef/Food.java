@@ -8,7 +8,7 @@ public class Food {
     private double proteinAmount;
     private double fatAmount;
     private double calories;
-    private boolean isFavorite;
+    private boolean isSelected;
 
     // Constructor
     Food(String name, double carb, double protein, double fat, double calories) {
@@ -42,10 +42,7 @@ public class Food {
     }
 
     public String toString() {
-
-        return this.name + "\t" + "Carbs: " + this.carbAmount + "\t"
-                + "Protein: " + this.proteinAmount + "\t" + "Fat: " +
-                this.fatAmount + "\t" + "Calories: " + this.calories;
+        return this.name;
     }
 
     // Food methods
@@ -53,11 +50,15 @@ public class Food {
         return true;
     }
 
-    public boolean addToFavourites() {
-
-        this.isFavorite = true;
-        return true;
+    public boolean isSelected(){
+        return this.isSelected;
     }
+
+    public void toggleSelected(){
+        this.isSelected = !this.isSelected;
+    }
+
+
 
 
 }
