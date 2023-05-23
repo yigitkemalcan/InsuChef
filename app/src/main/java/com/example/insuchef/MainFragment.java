@@ -25,13 +25,6 @@ import java.io.IOException;
  */
 public class MainFragment extends Fragment {
 
-    File jFile;
-    GetData get;
-
-    Bundle bundle;
-
-    MealSelectionFragment mealSelectFrag;
-
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -103,7 +96,7 @@ public class MainFragment extends Fragment {
             public void onClick(View v) {
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.fragmentContainer, mealSelectFrag);
+                fragmentTransaction.replace(R.id.fragmentContainer, new MealSelectionFragment());
                 fragmentTransaction.commit();
 
             }
@@ -114,7 +107,7 @@ public class MainFragment extends Fragment {
             public void onClick(View v) {
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.fragmentContainer, mealSelectFrag);
+                fragmentTransaction.replace(R.id.fragmentContainer, new MealSelectionFragment());
                 fragmentTransaction.commit();
 
             }
