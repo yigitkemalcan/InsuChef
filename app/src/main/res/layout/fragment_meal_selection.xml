@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="120dp"
             android:gravity="center"
-            android:text="InsuChef"
+            android:text="Select Meal"
             android:textSize="36sp"
             android:textStyle="bold"
             android:background="@color/green"

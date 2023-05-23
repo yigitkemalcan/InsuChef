@@ -10,6 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -17,6 +20,8 @@ import android.widget.Button;
  * create an instance of this fragment.
  */
 public class DistributionFragment extends Fragment {
+
+    private ArrayList<Food> meal;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -56,6 +61,13 @@ public class DistributionFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        Bundle bundle = this.getArguments();
+        if (bundle != null) {
+            meal = bundle.getParcelableArrayList("meal");
+        }
+
+
     }
 
     @Override
@@ -74,6 +86,17 @@ public class DistributionFragment extends Fragment {
                 fragmentTransaction.commit();
             }
         });
+
+        TextView text = view.findViewById(R.id.textView2);
+
+        String c = "";
+
+        for (Food food : meal)
+        {
+            c = c + food.toString() + "  ";
+        }
+
+        text.setText(c);
 
         return view;
     }
