@@ -83,7 +83,7 @@ public class MainFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_main, container, false);
 
-        mealSelectFrag = new MealSelectionFragment();
+
 
         Button breakfast = view.findViewById(R.id.breakfast);
         breakfast.setOnClickListener(new View.OnClickListener() {
@@ -92,7 +92,7 @@ public class MainFragment extends Fragment {
             public void onClick(View v) {
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.fragmentContainer, mealSelectFrag);
+                fragmentTransaction.replace(R.id.fragmentContainer, new MealSelectionFragment());
                 fragmentTransaction.commit();
 
             }
