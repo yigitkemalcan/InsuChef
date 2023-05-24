@@ -34,19 +34,6 @@ public class MainPage extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        File jFile = new File(getFilesDir(), "food.json");
-
-        // Fetch/Parse JSON data and create static FoodList object
-        try {
-            get = new GetData(jFile);
-            get.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (JSONException e) {
-            throw new RuntimeException(e);
-        }
-
 
         MainFragment mainFrag = new MainFragment();
 
