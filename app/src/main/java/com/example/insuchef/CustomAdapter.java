@@ -95,6 +95,19 @@ public class CustomAdapter extends ArrayAdapter<Food> {
                     food.removeFromMeal(mealSelect);
                 }
 
+                TextView selectionCount = mealSelect.getView().findViewById(R.id.selectionText);
+
+                if (mealSelect.selectedMeal.size() != 0)
+                {
+                    String s = "Food Selected: " + mealSelect.selectedMeal.size();
+                    selectionCount.setText(s);
+                }
+                else
+                {
+                    selectionCount.setText("");
+                }
+
+
                 notifyDataSetChanged();
             }
         });
