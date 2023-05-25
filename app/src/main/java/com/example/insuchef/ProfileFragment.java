@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -93,6 +94,27 @@ public class ProfileFragment extends Fragment {
                 fragmentTransaction.commit();
             }
         });
+
+        //Profile profile = new Profile();
+
+        EditText weightEdTxt = view.findViewById(R.id.weightEdTxt);
+        EditText targetBloodSugarEdTxt = view.findViewById(R.id.targetBloodSugarEdTxt);
+        EditText insulinSensivityFactorEdTxt = view.findViewById(R.id.insulinSensivityFactorEdTxt);
+        EditText breakfastRestriction = view.findViewById(R.id.breakfastRestriction);
+        EditText lunchRestriction = view.findViewById(R.id.lunchRestriction);
+        EditText dinnerRestriction = view.findViewById(R.id.dinnerRestriction);
+
+
+        Button update = view.findViewById(R.id.update);
+
+        update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+
         return view;
     }
 }

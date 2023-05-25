@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -58,19 +59,33 @@ public class InstantInformationFragment extends Fragment {
         }
     }
 
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_instant_information, container, false);
-        Button calculate = view.findViewById(R.id.calculate);
+
+
+        //Profile profile = new Profile();
+
+        EditText instantSugar = view.findViewById(R.id.instantEdTxt);
+        EditText carbRatio = view.findViewById(R.id.carbEdTxt);
+        EditText targetSugar = view.findViewById(R.id.targetEdTxt);
+        EditText weight = view.findViewById(R.id.weight);
+
+
+        Button calculate = view.findViewById(R.id.calculateButton);
         calculate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.fragmentContainer, new CalculationFragment());
                 fragmentTransaction.commit();
+
             }
         });
 

@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -54,11 +55,29 @@ public class CalculationFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
+    TextView timeResult;
+    TextView insulinResult;
+    TextView carbResult;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_calculation, container, false);
+        View view = inflater.inflate(R.layout.fragment_calculation, container, false);
+        //setResults();
+        carbResult = view.findViewById(R.id.carbResult);
+        insulinResult = view.findViewById(R.id.insulinResult);
+        timeResult = view.findViewById(R.id.timeResult);
+
+        return view;
+
+    }
+
+    public void setResults(){
+
+        carbResult.setText("");
+        insulinResult.setText("");
+        timeResult.setText("");
+
     }
 }

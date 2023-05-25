@@ -28,6 +28,7 @@ public class MainPage extends AppCompatActivity {
     ActivityMainBinding binding;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +37,7 @@ public class MainPage extends AppCompatActivity {
 
 
         MainFragment mainFrag = new MainFragment();
+
 
         replaceFragment(mainFrag);
         binding.navigation.setOnItemSelectedListener(item -> {

@@ -41,7 +41,7 @@
             app:layout_constraintTop_toBottomOf="@+id/insuchef" />
 
         <TextView
-            android:id="@+id/instant"
+            android:id="@+id/foodName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="18dp"
@@ -55,7 +55,7 @@
             app:layout_constraintTop_toBottomOf="@+id/basalInsulin" />
 
         <TextView
-            android:id="@+id/ratio"
+            android:id="@+id/carbPer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="9dp"
@@ -66,10 +66,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.345"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/instantSugar" />
+            app:layout_constraintTop_toBottomOf="@+id/instantEdTxt" />
 
         <TextView
-            android:id="@+id/target"
+            android:id="@+id/fatPer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="9dp"
@@ -80,10 +80,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.265"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/carbRatio" />
+            app:layout_constraintTop_toBottomOf="@+id/carbEdTxt" />
 
         <Button
-            android:id="@+id/calculate"
+            android:id="@+id/calculateButton"
             android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="54dp"
@@ -99,7 +99,7 @@
             app:layout_constraintTop_toBottomOf="@+id/weight" />
 
         <EditText
-            android:id="@+id/instantSugar"
+            android:id="@+id/instantEdTxt"
             android:layout_width="240dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="9dp"
@@ -109,10 +109,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.391"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/instant" />
+            app:layout_constraintTop_toBottomOf="@+id/foodName" />
 
         <EditText
-            android:id="@+id/carbRatio"
+            android:id="@+id/carbEdTxt"
             android:layout_width="240dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="9dp"
@@ -122,20 +122,20 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.391"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ratio" />
+            app:layout_constraintTop_toBottomOf="@+id/carbPer" />
 
         <EditText
-            android:id="@+id/targetSugar"
+            android:id="@+id/targetEdTxt"
             android:layout_width="240dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="9dp"
+            android:layout_marginTop="8dp"
             android:ems="10"
             android:hint="e.g: 100mg/dl"
             android:inputType="text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.391"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/target" />
+            app:layout_constraintTop_toBottomOf="@+id/fatPer" />
 
         <TextView
             android:id="@+id/weightTxt"
@@ -149,7 +149,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.188"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/targetSugar" />
+            app:layout_constraintTop_toBottomOf="@+id/targetEdTxt" />
 
         <EditText
             android:id="@+id/weight"

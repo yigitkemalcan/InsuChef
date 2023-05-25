@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -61,7 +62,23 @@ public class AddFoodFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_add_food, container, false);
-        Button addNewFood = view.findViewById(R.id.calculate);
+
+        EditText foodNameEdTxt = view.findViewById(R.id.foodNameEdTxt);
+        EditText carbPerEdTxt = view.findViewById(R.id.carbPerEdTxt);
+        EditText fatPerEdTxt = view.findViewById(R.id.fatPerEdTxt);
+
+        Button addNewFood = view.findViewById(R.id.addNewFood);
+
+        addNewFood.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+
+
+
 
 
         return view;

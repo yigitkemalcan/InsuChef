@@ -26,115 +26,118 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/basalInsulin"
+            android:id="@+id/foodAddition"
             android:layout_width="275dp"
             android:layout_height="55dp"
-            android:layout_marginTop="48dp"
-            android:background="@drawable/button"
-            android:gravity="center"
             android:text="Food Addition"
             android:textColor="#FFFFFF"
             android:textSize="24sp"
             android:textStyle="bold"
+            android:layout_marginTop="48dp"
+            android:gravity="center"
+            android:background="@drawable/button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/insuchef" />
 
         <TextView
-            android:id="@+id/instant"
+            android:id="@+id/foodNameTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="48dp"
+            android:layout_marginTop="24dp"
             android:text="Food Name"
             android:textColor="#000000"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.247"
+            app:layout_constraintHorizontal_bias="0.213"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/basalInsulin" />
+            app:layout_constraintTop_toBottomOf="@+id/foodAddition" />
 
         <TextView
-            android:id="@+id/ratio"
+            android:id="@+id/carbPerTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="16dp"
             android:text="Carbohydrate Per 100gr"
             android:textColor="#000000"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.36"
+            app:layout_constraintHorizontal_bias="0.31"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/instantSugar" />
+            app:layout_constraintTop_toBottomOf="@+id/foodNameEdTxt" />
 
         <TextView
-            android:id="@+id/target"
+            android:id="@+id/fatPerTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="16dp"
             android:text="Fat Per 100gr"
             android:textColor="#000000"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.261"
+            app:layout_constraintHorizontal_bias="0.225"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/carbRatio" />
+            app:layout_constraintTop_toBottomOf="@+id/carbPerEdTxt" />
 
         <Button
-            android:id="@+id/calculate"
+            android:id="@+id/addNewFood"
             android:layout_width="180dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/button"
+            android:layout_marginBottom="110dp"
             android:text="Add New Food"
-            android:textColor="#FFFFFF"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:layout_marginBottom="54dp"
+            android:textColor="@color/white"
+            android:background="@drawable/button"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/targetSugar" />
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <EditText
-            android:id="@+id/instantSugar"
+            android:id="@+id/foodNameEdTxt"
             android:layout_width="240dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="16dp"
             android:ems="10"
             android:hint="e.g: Tomato"
             android:inputType="text"
+            android:textColor="#000000"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.461"
+            app:layout_constraintHorizontal_bias="0.397"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/instant" />
+            app:layout_constraintTop_toBottomOf="@+id/foodNameTxt" />
 
         <EditText
-            android:id="@+id/carbRatio"
+            android:id="@+id/carbPerEdTxt"
             android:layout_width="240dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="16dp"
             android:ems="10"
             android:hint="e.g: 10gr"
             android:inputType="text"
+            android:textColor="#000000"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.461"
+            app:layout_constraintHorizontal_bias="0.397"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ratio" />
+            app:layout_constraintTop_toBottomOf="@+id/carbPerTxt" />
 
         <EditText
-            android:id="@+id/targetSugar"
+            android:id="@+id/fatPerEdTxt"
             android:layout_width="240dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="16dp"
             android:ems="10"
             android:hint="e.g: 10gr"
             android:inputType="text"
+            android:textColor="#000000"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.461"
+            app:layout_constraintHorizontal_bias="0.397"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/target" />
+            app:layout_constraintTop_toBottomOf="@+id/fatPerTxt" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
