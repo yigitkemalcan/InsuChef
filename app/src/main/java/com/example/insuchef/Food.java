@@ -12,7 +12,7 @@ public class Food {
     private double calories;
     private boolean isSelected;
     private boolean isLocked = false;
-    private double gram=-1;
+    private int gram=-1;
 
     // Constructor
     Food(String name, double carb, double protein, double fat, double calories) {
@@ -32,6 +32,12 @@ public class Food {
 
     public double getCarbAmount() {
         return carbAmount;
+    }
+    public double getCarbAmountRespectToGram(){
+        return carbAmount*gram/100;
+    }
+    public double getCarbAmountRespectToGram(double gram){
+        return carbAmount*gram/100;
     }
 
     public double getProteinAmount() {
@@ -64,8 +70,8 @@ public class Food {
     }
     public static ArrayList<Food> setData(){
         ArrayList<Food> foods = new ArrayList<>();
-        String[] names = {"bread","apple","pear","bread","apple","bread","apple"};
-        int[] carbs = {30,40,20,10,10,10,10};
+        String[] names = {"bread","apple","pear","carrot","strawberry","soup","milk"};
+        int[] carbs = {30,40,20,10,25,35,45};
         for(int i=0;i<names.length;i++){
             Food food = new Food();
             food.setName(names[i]);
@@ -95,7 +101,7 @@ public class Food {
         this.name = name;
     }
 
-    public double getGram() {
+    public int getGram() {
         return gram;
     }
 
@@ -107,7 +113,7 @@ public class Food {
         isLocked = locked;
     }
 
-    public void setGram(double gram) {
+    public void setGram(int gram) {
         this.gram = gram;
     }
 }
