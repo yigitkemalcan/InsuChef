@@ -72,6 +72,7 @@ public class DistributionFragment extends Fragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+            meal = getArguments().getParcelableArrayList("meal");
         }
 
     }
@@ -88,7 +89,7 @@ public class DistributionFragment extends Fragment {
         totalCarbEditText = view.findViewById(R.id.totalCarbEditText);
         recyclerView = view.findViewById(R.id.recyclerView);
 
-        adapter = new FoodAdapter(Food.setData(),requireContext());
+        adapter = new FoodAdapter(Food.setData(this.meal),requireContext());
         //adapter.updateEditTexts();
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager manager = new LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false);
@@ -227,7 +228,7 @@ public class DistributionFragment extends Fragment {
             }
         });
 
-       /* TextView text = view.findViewById(R.id.textView2);
+       /*TextView text = view.findViewById(R.id.textView2);
 
         String c = "";
 
@@ -239,6 +240,9 @@ public class DistributionFragment extends Fragment {
         text.setText(c);*/
 
         return view;
+    }
+    public ArrayList<Food> getMeal(){
+        return this.meal;
     }
 
 }

@@ -105,16 +105,16 @@ public class Food implements Parcelable {
     public void toggleSelected(){
         this.isSelected = !this.isSelected;
     }
-    public static ArrayList<Food> setData(){
-        ArrayList<Food> foods = new ArrayList<>();
-        String[] names = {"bread","apple","pear","carrot","strawberry","soup","milk"};
+    public static ArrayList<Food> setData(ArrayList<Food> meal){
+        ArrayList<Food> foods = meal;
+        /*String[] names = {"bread","apple","pear","carrot","strawberry","soup","milk"};
         int[] carbs = {30,40,20,10,25,35,45};
         for(int i=0;i<names.length;i++){
             Food food = new Food();
             food.setName(names[i]);
             food.setCarbAmount(carbs[i]);
             foods.add(food);
-        }
+        }*/
         return foods;
     }
 
