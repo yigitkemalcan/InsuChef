@@ -24,7 +24,6 @@ public class ProfileManager {
     public void saveProfile(Profile profile) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putFloat(KEY_WEIGHT, (float) profile.getWeight());
-        editor.putInt(KEY_NUMBER_OF_MEALS, profile.getNumberOfMeals());
         editor.putInt(KEY_BREAKFAST_RESTRICTION, profile.getBreakfastRestriction());
         if(profile.getBreakfastRestriction()!=0){
             editor.putInt(KEY_LUNCH_RESTRICTION, profile.getLunchRestriction());
@@ -48,7 +47,6 @@ public class ProfileManager {
 
         Profile profile = new Profile();
         profile.setWeight(weight);
-        profile.setNumberOfMeals(numberOfMeals);
         profile.setBreakfastRestriction(breakfastRestriction);
         profile.setLunchRestriction(lunchRestriction);
         profile.setDinnerRestriction(dinnerRestriction);

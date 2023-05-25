@@ -30,24 +30,23 @@ public class Calc{
         }
         return carbs;
     }
-    public Calc(double totalinsulin,int numberofmeals){
+    public Calc(double totalinsulin){
         this.totalInsulin = totalinsulin;
-        this.totalNumberOfMeals =  numberofmeals;
+        this.totalNumberOfMeals = 3;
         this.diabetesAge = 10;
         this.targetBloodSugar = 120;
         this.isf = calculateIsf();
         this.ratio = calculateRatio();
     }
 
-    public Calc(double totalinsulin, int numberofmeals, int targetbloodsugar, int isf, int ratio){
+    public Calc(double totalinsulin, int targetbloodsugar, int isf, int ratio){
         this.totalInsulin = totalinsulin;
-        this.totalNumberOfMeals = numberofmeals;
         this.targetBloodSugar = targetbloodsugar;
         this.isf = isf;
         this.ratio = ratio;
     }
 
-    public Calc(double weight){
+    public Calc(int weight){
         this.weight = weight;
         this.totalInsulin = this.calculateTotal(this.weight);
         this.totalNumberOfMeals = 3;
@@ -57,9 +56,8 @@ public class Calc{
         this.ratio = calculateRatio();
     }
 
-    public Calc(double weight,int targetbloodsugar,int totalnumberofmeals){
+    public Calc(double weight,int targetbloodsugar){
         this.weight = weight;
-        this.totalNumberOfMeals = totalnumberofmeals;
         this.targetBloodSugar = targetbloodsugar;
         this.totalInsulin = this.calculateTotal(this.weight);
         this.diabetesAge = 10;
@@ -67,9 +65,8 @@ public class Calc{
         this.ratio = calculateRatio();
     }
 
-    public Calc(double weight, int targetbloodsugar, int totalnumberofmeals, int diabetesage){
+    public Calc(double weight, int targetbloodsugar,int diabetesage){
         this.weight = weight;
-        this.totalNumberOfMeals = totalnumberofmeals;
         this.targetBloodSugar = targetbloodsugar;
         this.totalInsulin = this.calculateTotal(this.weight);
         this.diabetesAge = diabetesage;

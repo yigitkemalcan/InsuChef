@@ -3,16 +3,66 @@ package com.example.insuchef;
 // this class holds peoples information in different person objects
 // this class can be used when creating the profile page
 public class Profile {
-
-    private static int numberOfProfiles;
     private String name;
+    private double weight;
+    private int breakfastRestriction;
+    private int lunchRestriction;
+    private int dinnerRestriction;
+    private int targetBloodSugar;
+    private int diabetesAge; // how many years does the patient deal with diabetes
+    private Calc calc;
 
-    public int getNumberOfMeals() {
-        return numberOfMeals;
+    public Profile(){}
+    //constructors
+    public Profile(String name, int weight){
+        this.name = name;
+        this.weight = weight;
+        this.calc = new Calc(weight);
     }
 
-    public void setNumberOfMeals(int numberOfMeals) {
-        this.numberOfMeals = numberOfMeals;
+    public Profile(String name, double totalinsulin){
+        this.name = name;
+        this.calc = new Calc(totalinsulin);
+    }
+
+    public Profile(String name, double weight, int targetbloodsugar){
+        this.name = name;
+        this.weight = weight;
+        this.targetBloodSugar = targetbloodsugar;
+        this.calc = new Calc(weight, targetbloodsugar);
+    }
+
+    public Profile(String name, double weight,int targetbloodsugar, int diabetesAge){
+        this.name = name;
+        this.weight = weight;
+        this.targetBloodSugar = targetbloodsugar;
+        this.calc = new Calc(weight, targetbloodsugar,diabetesAge);
+    }
+
+    // getters
+    public String getName(){
+        return this.name;
+    }
+
+    /*public int getAge(){
+        return this.age;
+    }*/
+
+    public double getWeight(){
+        return this.weight;
+    }
+
+
+    public int getTargetBloodSugar(){
+        return this.targetBloodSugar;
+    }
+
+    public int getDiabetesAge(){
+        return this.diabetesAge;
+    }
+
+    public Calc getCalc(){
+        return this.calc;
     }
 
     public int getBreakfastRestriction() {
@@ -27,84 +77,7 @@ public class Profile {
         return dinnerRestriction;
     }
 
-    //private int age;
-    private double weight;
-    private int numberOfMeals;
-    private int breakfastRestriction;
-    private int lunchRestriction;
-    private int dinnerRestriction;
-    private int targetBloodSugar;
-    private int diabetesAge; // how many years does the patient deal with diabetes
-    private Calc calc;
-
-    public Profile(){}
-    //constructors
-    public Profile(String name, double weight){
-        this.name = name;
-        this.weight = weight;
-        this.calc = new Calc(weight);
-    }
-
-    public Profile(String name, double totalinsulin, int numberofmeals){
-        this.name = name;
-        this.numberOfMeals = numberofmeals;
-        this.calc = new Calc(totalinsulin,numberofmeals);
-    }
-
-    public Profile(String name, double weight, int numberofmeals, int targetbloodsugar){
-        this.name = name;
-        this.weight = weight;
-        this.numberOfMeals = numberofmeals;
-        this.targetBloodSugar = targetbloodsugar;
-        this.calc = new Calc(weight, targetbloodsugar, numberofmeals);
-    }
-
-    public Profile(String name, double weight, int numberofmeals, int targetbloodsugar, int diabetesAge){
-        this.name = name;
-        this.weight = weight;
-        this.numberOfMeals = numberofmeals;
-        this.targetBloodSugar = targetbloodsugar;
-        this.calc = new Calc(weight, targetbloodsugar, numberofmeals, diabetesAge);
-    }
-
-    // getters
-    public static int getNumberOfProfiles(){
-        return numberOfProfiles;
-    }
-
-    public String getName(){
-        return this.name;
-    }
-
-    /*public int getAge(){
-        return this.age;
-    }*/
-
-    public double getWeight(){
-        return this.weight;
-    }
-
-    public int getnumberOfMeals(){
-        return this.numberOfMeals;
-    }
-
-    public int getTargetBloodSugar(){
-        return this.targetBloodSugar;
-    }
-
-    public int getDiabetesAge(){
-        return this.diabetesAge;
-    }
-
-    public Calc getCalc(){
-        return this.calc;
-    }
-
     //setters
-
-    public static void setNumberOfProfiles(int profilenumber){
-        numberOfProfiles = profilenumber;
-    }
 
     public void setName(String name){
         this.name = name;
@@ -116,10 +89,6 @@ public class Profile {
 
     public void setWeight(double weight){
         this.weight = weight;
-    }
-
-    public void setnumberOfMeals(int numberofmeals){
-        this.numberOfMeals = numberofmeals;
     }
 
     public void setTargetBloodSugar(int targetbloodsugar){
