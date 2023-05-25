@@ -227,7 +227,7 @@ public class DistributionFragment extends Fragment {
             }
         });
 
-        TextView text = view.findViewById(R.id.textView2);
+       /* TextView text = view.findViewById(R.id.textView2);
 
         String c = "";
 
@@ -236,7 +236,7 @@ public class DistributionFragment extends Fragment {
             c = c + food.toString() + "  ";
         }
 
-        text.setText(c);
+        text.setText(c);*/
 
         return view;
     }
