@@ -1,6 +1,9 @@
 package com.example.insuchef;
 
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 
 import java.io.BufferedReader;
@@ -15,18 +18,21 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONTokener;
 
+
 public class GetData extends AsyncTask<Void, Void,Void> {
 
     protected static FileWriter writer;
     protected static BufferedReader reader;
     protected static URL url;
     protected static HttpURLConnection con;
+    protected Context context;
 
     protected File jFile;
 
-    public GetData(File file)  throws IOException, JSONException {
+    public GetData(File file, Context context)  throws IOException, JSONException {
 
         this.jFile = file;
+        this.context = context;
     }
 
     @Override
@@ -87,5 +93,18 @@ public class GetData extends AsyncTask<Void, Void,Void> {
         return null;
 
     }
+
+    @Override
+    protected void onPostExecute(Void v) {
+        super.onPostExecute(v);
+
+        Intent intent = new Intent(this.context, MainPage.class);
+
+        Activity a = (Activity) this.context;
+        a.startActivity(intent);
+        a.finish();
+
+    }
+
 
 }

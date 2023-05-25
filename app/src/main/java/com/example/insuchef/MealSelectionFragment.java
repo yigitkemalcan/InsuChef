@@ -82,29 +82,34 @@ public class MealSelectionFragment extends Fragment {
         SearchView searchBar = view.findViewById(R.id.searchBar);
         ListView foodListView = view.findViewById(R.id.foodList);
 
-        CustomAdapter arrayAdapter = new CustomAdapter(this.getActivity(), R.layout.custom_list_layout, MainPage.foodList.foods);
+        CustomAdapter arrayAdapter = new CustomAdapter(this.getActivity(), R.layout.custom_list_layout, this, MainPage.foodList.foods);
         foodListView.setAdapter(arrayAdapter);
 
-        foodListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        searchBar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                Food food = (Food) foodListView.getItemAtPosition(position);
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
 
-                if (food.isSelected()) {
-                    selectedMeal.add(food);
-                }
-                else {
-                    selectedMeal.remove(food);
-                }
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                arrayAdapter.filterSearch(newText);
+                return true;
             }
         });
+
 
         Button distribution = view.findViewById(R.id.distribution);
         distribution.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentManager fragmentManager = getFragmentManager();
+
+                // Bundle the selected foods
                 DistributionFragment dist = new DistributionFragment();
+                Bundle bundle = new Bundle();
+                bundle.putParcelableArrayList("meal", selectedMeal);
+                dist.setArguments(bundle);
 
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.fragmentContainer, dist);
