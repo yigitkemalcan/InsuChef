@@ -6,14 +6,38 @@ public class Profile {
 
     private static int numberOfProfiles;
     private String name;
+
+    public int getNumberOfMeals() {
+        return numberOfMeals;
+    }
+
+    public void setNumberOfMeals(int numberOfMeals) {
+        this.numberOfMeals = numberOfMeals;
+    }
+
+    public int getBreakfastRestriction() {
+        return breakfastRestriction;
+    }
+
+    public int getLunchRestriction() {
+        return lunchRestriction;
+    }
+
+    public int getDinnerRestriction() {
+        return dinnerRestriction;
+    }
+
     //private int age;
     private double weight;
     private int numberOfMeals;
+    private int breakfastRestriction;
+    private int lunchRestriction;
+    private int dinnerRestriction;
     private int targetBloodSugar;
     private int diabetesAge; // how many years does the patient deal with diabetes
     private Calc calc;
 
-
+    public Profile(){}
     //constructors
     public Profile(String name, double weight){
         this.name = name;
@@ -113,4 +137,18 @@ public class Profile {
     public void setCalc(double weight, int targetBloodSugar, int numberOfMeals, int diabetesage){
         this.calc = new Calc(weight, targetBloodSugar, numberOfMeals, diabetesage);
     }
+
+    public void setBreakfastRestriction(int breakfastRestriction) {
+        this.breakfastRestriction = breakfastRestriction;
+    }
+
+    public void setLunchRestriction(int lunchRestriction) {
+        this.lunchRestriction = lunchRestriction;
+    }
+
+    public void setDinnerRestriction(int dinnerRestriction) {
+        this.dinnerRestriction = dinnerRestriction;
+    }
+
+
 }

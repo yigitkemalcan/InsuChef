@@ -1,5 +1,9 @@
 package com.example.insuchef;
 
+import android.widget.Toast;
+
+import java.util.ArrayList;
+
 // this class is for all insulin calculation methods
 public class Calc{
 
@@ -17,8 +21,15 @@ public class Calc{
     private int totalNumberOfMeals;
     private int count;
     private int diabetesAge;
+    private ArrayList<Food> foods;
 
-
+    public static double calculateCarbs(ArrayList<Food> list){
+        double carbs =0;
+        for(Food food: list){
+            carbs+=food.getCarbAmountRespectToGram();
+        }
+        return carbs;
+    }
     public Calc(double totalinsulin,int numberofmeals){
         this.totalInsulin = totalinsulin;
         this.totalNumberOfMeals =  numberofmeals;

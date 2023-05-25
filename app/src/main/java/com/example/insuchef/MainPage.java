@@ -26,6 +26,8 @@ public class MainPage extends AppCompatActivity {
     public static FoodList foodList;
 
     ActivityMainBinding binding;
+    private ProfileManager profileManager;
+    private Profile profile;
 
 
     @Override
@@ -33,6 +35,9 @@ public class MainPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        profileManager = ProfileManager.getInstance(this);
+        profile = profileManager.getProfile();
 
         File jFile = new File(getFilesDir(), "food.json");
 

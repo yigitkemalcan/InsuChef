@@ -40,6 +40,7 @@ public class MainFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    public static int whichMeal;
 
 
 
@@ -94,7 +95,7 @@ public class MainFragment extends Fragment {
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.fragmentContainer, new MealSelectionFragment());
                 fragmentTransaction.commit();
-
+                whichMeal = 0;
             }
         });
         Button lunch = view.findViewById(R.id.lunch);
@@ -105,7 +106,7 @@ public class MainFragment extends Fragment {
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.fragmentContainer, mealSelectFrag);
                 fragmentTransaction.commit();
-
+                whichMeal = 1;
             }
         });
         Button dinner = view.findViewById(R.id.dinner);
@@ -116,7 +117,7 @@ public class MainFragment extends Fragment {
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.fragmentContainer, mealSelectFrag);
                 fragmentTransaction.commit();
-
+                whichMeal = 2;
             }
         });
         return view;
