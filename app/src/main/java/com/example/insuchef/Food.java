@@ -2,7 +2,7 @@ package com.example.insuchef;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
+import java.util.ArrayList;
 import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
