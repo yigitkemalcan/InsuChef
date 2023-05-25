@@ -2,11 +2,11 @@ package com.example.insuchef;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import java.util.ArrayList;
-
-public class Food {
 
 import androidx.annotation.NonNull;
+
+import java.util.ArrayList;
+
 
 public class Food implements Parcelable {
 
