@@ -6,7 +6,7 @@ import android.content.SharedPreferences;
 public class ProfileManager {
     private static final String PREF_NAME = "ProfilePrefs";
     private static final String KEY_WEIGHT = "weight";
-    private static final String KEY_NUMBER_OF_MEALS = "numberOfMeals";
+    private static final String INSULIN_SENSIVITY = "insulinSensivity";
     private static final String KEY_BREAKFAST_RESTRICTION = "breakfastRestriction";
     private static final String KEY_LUNCH_RESTRICTION = "lunchRestriction";
     private static final String KEY_DINNER_RESTRICTION = "dinnerRestriction";
@@ -23,6 +23,7 @@ public class ProfileManager {
 
     public void saveProfile(Profile profile) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt(INSULIN_SENSIVITY, profile.getInsulinSensivity());
         editor.putFloat(KEY_WEIGHT, (float) profile.getWeight());
         editor.putInt(KEY_BREAKFAST_RESTRICTION, profile.getBreakfastRestriction());
         if(profile.getBreakfastRestriction()!=0){
@@ -39,7 +40,7 @@ public class ProfileManager {
 
     public Profile getProfile() {
         double weight = sharedPreferences.getFloat(KEY_WEIGHT, 0);
-        int numberOfMeals = sharedPreferences.getInt(KEY_NUMBER_OF_MEALS, 0);
+        int insulinSensivity = sharedPreferences.getInt(INSULIN_SENSIVITY, 0);
         int breakfastRestriction = sharedPreferences.getInt(KEY_BREAKFAST_RESTRICTION, 0);
         int lunchRestriction = sharedPreferences.getInt(KEY_LUNCH_RESTRICTION, 0);
         int dinnerRestriction = sharedPreferences.getInt(KEY_DINNER_RESTRICTION, 0);
@@ -47,6 +48,7 @@ public class ProfileManager {
 
         Profile profile = new Profile();
         profile.setWeight(weight);
+        profile.setInsulinSensivity(insulinSensivity);
         profile.setBreakfastRestriction(breakfastRestriction);
         profile.setLunchRestriction(lunchRestriction);
         profile.setDinnerRestriction(dinnerRestriction);

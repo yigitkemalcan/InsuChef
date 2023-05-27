@@ -12,6 +12,12 @@ public class Profile {
     private int diabetesAge; // how many years does the patient deal with diabetes
     private Calc calc;
 
+    private int insulinSensivity;
+
+    private int instantBloodSugar;
+
+    private int carbInsulinRatio;
+
     public Profile(){}
     //constructors
     public Profile(String name, int weight){
@@ -119,5 +125,18 @@ public class Profile {
         this.dinnerRestriction = dinnerRestriction;
     }
 
+    public void setInstantBloodSugar(int instantBloodSugar) {
+        this.instantBloodSugar = instantBloodSugar;
+    }
+    public void setCarbInsulinRatio(int carbInsulinRatio) {
+        this.carbInsulinRatio = carbInsulinRatio;
+    }
 
+    public void setInsulinSensivity (int insulinSensivity){
+        this.insulinSensivity = insulinSensivity;
+    }
+
+    public int getInsulinSensivity(){
+        return this.insulinSensivity;
+    }
 }
