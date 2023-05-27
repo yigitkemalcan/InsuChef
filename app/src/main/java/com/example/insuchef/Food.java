@@ -148,7 +148,7 @@ public class Food implements Parcelable {
         this.calories = calory;
     }
 
-    private void setName(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -167,4 +167,6 @@ public class Food implements Parcelable {
     public void setGram(int gram) {
         this.gram = gram;
     }
+
+
 }
