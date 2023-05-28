@@ -20,9 +20,13 @@ public class Profile {
     private int diabetesAge; // how many years does the patient deal with diabetes
     private Calc calc;
     private ArrayList<String> favourites;
+    private int insulinSensivity;
+    private int instantBloodSugar;
+    private int carbInsulinRatio;
 
     // Constructor
     public Profile(){ }
+
 
 
     // getters
@@ -60,6 +64,10 @@ public class Profile {
 
     public int getDinnerRestriction() {
         return dinnerRestriction;
+    }
+  
+    public int getInsulinSensivity(){
+        return this.insulinSensivity;
     }
 
     public ArrayList<String> getFavourites() { return favourites; }
@@ -105,6 +113,17 @@ public class Profile {
     public void setDinnerRestriction(int dinnerRestriction) {
         this.dinnerRestriction = dinnerRestriction;
     }
+  
+    public void setInstantBloodSugar(int instantBloodSugar) {
+        this.instantBloodSugar = instantBloodSugar;
+    }
+    public void setCarbInsulinRatio(int carbInsulinRatio) {
+        this.carbInsulinRatio = carbInsulinRatio;
+    }
+
+    public void setInsulinSensivity (int insulinSensivity){
+        this.insulinSensivity = insulinSensivity;
+    }
 
     public void setFavourites(ArrayList<String> favourites) {
         this.favourites = favourites;
@@ -119,6 +138,5 @@ public class Profile {
         food.removeFavourite();
         this.favourites.remove(food.getName());
     }
-
 
 }

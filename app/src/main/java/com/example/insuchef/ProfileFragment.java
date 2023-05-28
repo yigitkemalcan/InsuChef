@@ -84,6 +84,7 @@ public class ProfileFragment extends Fragment {
         lunch.setText(String.valueOf(profile.getLunchRestriction()));
         dinner.setText(String.valueOf(profile.getDinnerRestriction()));
         targetBloodSugar.setText(String.valueOf(profile.getTargetBloodSugar()));
+        insulinSensitivityFactor.setText(String.valueOf(profile.getInsulinSensivity()));
         weight.setText(String.valueOf(profile.getWeight()) );
 
         favorites.setOnClickListener(new View.OnClickListener() {
@@ -138,6 +139,7 @@ public class ProfileFragment extends Fragment {
                 }
 
                 profile.setTargetBloodSugar(Integer.parseInt(targetBloodSugar.getText().toString()));
+                profile.setInsulinSensivity(Integer.parseInt(insulinSensitivityFactor.getText().toString()));
                 //TODO: Set also insulin sensitivity factor and we have to take different isf for 3 meals at the beginning
                 profileManager.saveProfile(profile);
                 Toast.makeText(getContext(),"Updated!", Toast.LENGTH_SHORT).show();
