@@ -17,6 +17,7 @@ import org.json.JSONException;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class MainPage extends AppCompatActivity {
 
@@ -38,7 +39,10 @@ public class MainPage extends AppCompatActivity {
 
         profileManager = ProfileManager.getInstance(this);
         profile = profileManager.getProfile();
-
+        ArrayList<Food> added = profile.getAddedFoods();
+        for (Food f : added){
+            foodList.foods.add(f);
+        }
         File jFile = new File(getFilesDir(), "food.json");
 
         MainFragment mainFrag = new MainFragment();

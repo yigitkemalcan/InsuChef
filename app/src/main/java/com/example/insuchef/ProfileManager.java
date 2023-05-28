@@ -19,6 +19,10 @@ public class ProfileManager {
     private static final String KEY_TARGET_BLOOD_SUGAR = "targetBloodSugar";
     private static final String KEY_FAVOURITES = "favourites";
 
+    private static final String KEY_ADDED_FOODS = "addedFoods";
+
+    private static final String KEY_RATIO = "ratio";
+
     private SharedPreferences sharedPreferences;
 
     private ProfileManager(Context context) {
@@ -43,11 +47,15 @@ public class ProfileManager {
         if(profile.getDinnerRestriction()!=0) {
             editor.putInt(KEY_TARGET_BLOOD_SUGAR, profile.getTargetBloodSugar());
         }
-
+        editor.putInt(KEY_RATIO, profile.getCarbInsulinRatio());
         // Store the favourites String ArrayList by using the Gson library
         Gson gson = new Gson();
         String json = gson.toJson(profile.getFavourites());
         editor.putString(KEY_FAVOURITES, json);
+
+        Gson gson2 = new Gson();
+        String json2 = gson2.toJson(profile.getAddedFoods());
+        editor.putString(KEY_ADDED_FOODS, json2);
 
         editor.apply();
     }
@@ -59,6 +67,7 @@ public class ProfileManager {
         int lunchRestriction = sharedPreferences.getInt(KEY_LUNCH_RESTRICTION, 0);
         int dinnerRestriction = sharedPreferences.getInt(KEY_DINNER_RESTRICTION, 0);
         int targetBloodSugar = sharedPreferences.getInt(KEY_TARGET_BLOOD_SUGAR, 0);
+        int ratio = sharedPreferences.getInt(KEY_RATIO, 0);
         String json = sharedPreferences.getString(KEY_FAVOURITES, "");
         ArrayList<String> favourites;
         Gson gson = new Gson();
@@ -71,6 +80,19 @@ public class ProfileManager {
         {
             favourites = new ArrayList<>();
         }
+        ArrayList<Food> addedFoods;
+        Gson gson2 = new Gson();
+        String json2 = sharedPreferences.getString(KEY_ADDED_FOODS, "");
+        Type type2 = new TypeToken<ArrayList<Food>>() {}.getType();
+
+        if (json2 != null && !json2.equals("")) {
+            addedFoods = gson2.fromJson(json2, type2);
+        }
+        else
+        {
+            addedFoods = new ArrayList<>();
+        }
+
 
         Profile profile = new Profile();
         profile.setWeight(weight);
@@ -80,6 +102,8 @@ public class ProfileManager {
         profile.setDinnerRestriction(dinnerRestriction);
         profile.setTargetBloodSugar(targetBloodSugar);
         profile.setFavourites(favourites);
+        profile.setAddedFoods(addedFoods);
+        profile.setCarbInsulinRatio(ratio);
 
         return profile;
     }

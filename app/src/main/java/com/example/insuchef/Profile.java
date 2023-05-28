@@ -24,6 +24,8 @@ public class Profile {
     private int instantBloodSugar;
     private int carbInsulinRatio;
 
+    private ArrayList<Food> addedFoods;
+
     // Constructor
     public Profile(){ }
 
@@ -137,6 +139,29 @@ public class Profile {
     public void removeFoodFromFavourites(Food food) {
         food.removeFavourite();
         this.favourites.remove(food.getName());
+    }
+
+    public ArrayList<Food> getAddedFoods (){
+        return this.addedFoods;
+    }
+
+    public void setAddedFoods (ArrayList<Food> addedFoods){
+        this.addedFoods = addedFoods;
+
+    }
+    public void addFoodToAddedFoods(Food food){
+        this.addedFoods.add(food);
+
+    }
+
+    public int getInstantBloodSugar(){
+        return this.instantBloodSugar;
+
+    }
+
+    public int getCarbInsulinRatio(){
+        return  this.carbInsulinRatio;
+
     }
 
 }

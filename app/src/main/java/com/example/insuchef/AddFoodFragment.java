@@ -64,11 +64,16 @@ public class AddFoodFragment extends Fragment {
         }
     }
 
+    ProfileManager profileManager;
+    Profile profile;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_add_food, container, false);
+
+        profileManager = ProfileManager.getInstance(requireContext());
+        profile = profileManager.getProfile();
 
         EditText foodNameEdTxt = view.findViewById(R.id.foodNameEdTxt);
         EditText carbPerEdTxt = view.findViewById(R.id.carbPerEdTxt);
@@ -86,6 +91,8 @@ public class AddFoodFragment extends Fragment {
                         food.setName(foodNameEdTxt.getText().toString());
                         food.setCarbAmount(Double.parseDouble(carbPerEdTxt.getText().toString()));
                         food.setFatAmount(Double.parseDouble(fatPerEdTxt.getText().toString()));
+                        profile.addFoodToAddedFoods(food);
+                        profileManager.saveProfile(profile);
                         MainPage.foodList.foods.add(food);
                         Toast.makeText(getContext(), "Food added", Toast.LENGTH_SHORT).show();
 

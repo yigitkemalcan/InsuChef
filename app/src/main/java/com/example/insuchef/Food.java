@@ -161,5 +161,20 @@ public class Food implements Parcelable {
         this.gram = gram;
     }
 
+    public Food(){}
 
+    public void setCarbAmount(double carbAmount){
+        this.carbAmount = carbAmount;
+
+    }
+
+    public void setFatAmount(double fatAmount){
+        this.fatAmount = fatAmount;
+
+    }
+
+    public void setName(String name){
+        this.name = name;
+
+    }
 }
