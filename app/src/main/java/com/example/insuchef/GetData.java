@@ -85,7 +85,7 @@ public class GetData extends AsyncTask<Void, Void,Void> {
         }
 
         try {
-            MainPage.foodList = new FoodList(this.jFile);
+            MainPage.foodList = new FoodList(this.jFile, context.getApplicationContext());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

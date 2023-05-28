@@ -1,6 +1,5 @@
 package com.example.insuchef;
 
-import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -92,7 +91,7 @@ public class ProfileFragment extends Fragment {
             public void onClick(View v) {
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.fragmentContainer, new FavoritesFragment());
+                fragmentTransaction.replace(R.id.fragmentContainer, new ChangeFavouritesFragment());
                 fragmentTransaction.commit();
             }
         });

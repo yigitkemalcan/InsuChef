@@ -1,8 +1,11 @@
 package com.example.insuchef;
 
+import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.appcompat.widget.SearchView;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -10,15 +13,15 @@ import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,8 +30,10 @@ import java.util.ArrayList;
  */
 public class MealSelectionFragment extends Fragment {
 
-    File jFile;
+
     ArrayList<Food> selectedMeal;
+    ArrayList<Food> foodList;
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -70,6 +75,21 @@ public class MealSelectionFragment extends Fragment {
         }
 
         selectedMeal = new ArrayList<>();
+        foodList = new ArrayList<>(MainPage.foodList.foods);
+
+        // Reset all food selection
+        for (Food f : foodList)
+        {
+            f.removeSelected();
+        }
+
+        // Sort by favourites
+        Collections.sort(foodList, new Comparator<Food>() {
+            @Override
+            public int compare(Food f1, Food f2) {
+                return Boolean.compare(f2.isFavourite(), f1.isFavourite());
+            }
+        });
 
     }
 
@@ -80,9 +100,9 @@ public class MealSelectionFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_meal_selection, container, false);
 
         SearchView searchBar = view.findViewById(R.id.searchBar);
-        ListView foodListView = view.findViewById(R.id.foodList);
+        ListView foodListView = view.findViewById(R.id.foodListView);
 
-        CustomAdapter arrayAdapter = new CustomAdapter(this.getActivity(), R.layout.custom_list_layout, this, MainPage.foodList.foods);
+        MealSelectionAdapter arrayAdapter = new MealSelectionAdapter(this.getActivity(), R.layout.custom_list_layout, foodList, this);
         foodListView.setAdapter(arrayAdapter);
 
         searchBar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -119,6 +139,84 @@ public class MealSelectionFragment extends Fragment {
 
 
         return view;
+    }
+
+    private class MealSelectionAdapter extends CustomAdapter {
+
+        private MealSelectionFragment mealSelect;
+
+        private MealSelectionAdapter(Context context, int resource, List<Food> objects, MealSelectionFragment frag)
+        {
+            super(context, resource, objects);
+            mealSelect = frag;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            View view = convertView;
+            Drawable d = ResourcesCompat.getDrawable(getResources(), R.drawable.star_icon, null);
+            Food food = getItem(position);
+
+            if (view == null) {
+                LayoutInflater inflater = LayoutInflater.from(mContext);
+                view = inflater.inflate(mResource, parent, false);
+            }
+
+            TextView text = view.findViewById(R.id.customListLayout);
+
+            if (food != null) {
+                text.setText(food.toString());
+            }
+
+            if (food.isFavourite()) {
+                text.setCompoundDrawablesWithIntrinsicBounds(d, null, null, null);
+            }
+            else
+            {
+                text.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+            }
+
+            if(food.isSelected()) {
+                view.setBackgroundResource(R.drawable.item_background);
+            }
+            else {
+                view.setBackground(null);
+            }
+
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    food.toggleSelected();
+
+                    if (food.isSelected())
+                    {
+                        food.addToMeal(mealSelect);
+                    }
+                    else
+                    {
+                        food.removeFromMeal(mealSelect);
+                    }
+
+                    TextView selectionCount = mealSelect.getView().findViewById(R.id.selectionText);
+
+                    if (mealSelect.selectedMeal.size() != 0)
+                    {
+                        String s = "Food Selected: " + mealSelect.selectedMeal.size();
+                        selectionCount.setText(s);
+                    }
+                    else
+                    {
+                        selectionCount.setText("");
+                    }
+
+                    notifyDataSetChanged();
+                }
+            });
+
+            return view;
+        }
+
     }
 
 }

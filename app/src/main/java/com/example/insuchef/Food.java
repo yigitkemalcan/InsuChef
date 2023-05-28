@@ -17,6 +17,8 @@ public class Food implements Parcelable {
     private double fatAmount;
     private double calories;
     private boolean isSelected;
+
+    private boolean isFavourite;
     private boolean isLocked = false;
     private int gram=-1;
 
@@ -29,7 +31,6 @@ public class Food implements Parcelable {
         this.fatAmount = fat;
         this.calories = calories;
     }
-    Food(){}
 
     protected Food(Parcel in) {
         name = in.readString();
@@ -79,7 +80,15 @@ public class Food implements Parcelable {
         return calories;
     }
 
+    public boolean isFavourite() { return isFavourite; }
+
     // Food Methods
+
+    public void setFavourite() {
+        this.isFavourite = true;
+    }
+
+    public void removeFavourite() { this.isFavourite = false; }
 
     public void addToMeal(MealSelectionFragment mealFrag) {
 
@@ -90,7 +99,6 @@ public class Food implements Parcelable {
 
         mealFrag.selectedMeal.remove(this);
     }
-
 
     @Override
     public String toString() {
@@ -105,6 +113,9 @@ public class Food implements Parcelable {
     public void toggleSelected(){
         this.isSelected = !this.isSelected;
     }
+
+    public void removeSelected() { this.isSelected = false; }
+
     public static ArrayList<Food> setData(ArrayList<Food> meal){
         ArrayList<Food> foods = meal;
         /*String[] names = {"bread","apple","pear","carrot","strawberry","soup","milk"};
@@ -123,9 +134,6 @@ public class Food implements Parcelable {
     public int describeContents() {
         return 0;
     }
-    public void setCarbAmount(double carbAmount) {
-        this.carbAmount = carbAmount;
-    }
 
     @Override
     public void writeToParcel(@NonNull Parcel parcel, int i) {
@@ -135,21 +143,6 @@ public class Food implements Parcelable {
         parcel.writeDouble(fatAmount);
         parcel.writeDouble(calories);
         parcel.writeByte((byte) (isSelected ? 1 : 0));
-    }
-    public void setProteinAmount(double proteinAmount) {
-        this.proteinAmount = proteinAmount;
-    }
-
-    public void setFatAmount(double fatAmount) {
-        this.fatAmount = fatAmount;
-    }
-
-    private void setCaloryAmount(int calory) {
-        this.calories = calory;
-    }
-
-    private void setName(String name) {
-        this.name = name;
     }
 
     public int getGram() {

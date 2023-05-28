@@ -1,5 +1,7 @@
 package com.example.insuchef;
 
+import android.content.Context;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -9,8 +11,9 @@ import java.util.ArrayList;
 public class FoodList {
 
     public ArrayList<Food> foods;
+    private Profile profile;
 
-    FoodList(File file) throws Exception {
+    FoodList(File file, Context context) throws Exception {
 
         this.foods = new ArrayList<>();
 
@@ -34,13 +37,17 @@ public class FoodList {
 
                 Food food = new Food(name, carb, protein, fat, calories);
 
+                ProfileManager pm = ProfileManager.getInstance(context);
+                profile = pm.getProfile();
+
+                if (profile.getFavourites().contains(food.getName()))
+                {
+                    food.setFavourite();
+                }
+
                 this.foods.add(food);
-
             }
-
         }
-
-        System.out.println("Selam");
 
     }
 
