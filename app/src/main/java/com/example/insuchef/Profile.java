@@ -1,5 +1,13 @@
 package com.example.insuchef;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.Set;
+
 // this class holds peoples information in different person objects
 // this class can be used when creating the profile page
 public class Profile {
@@ -11,39 +19,15 @@ public class Profile {
     private int targetBloodSugar;
     private int diabetesAge; // how many years does the patient deal with diabetes
     private Calc calc;
-
+    private ArrayList<String> favourites;
     private int insulinSensivity;
-
     private int instantBloodSugar;
-
     private int carbInsulinRatio;
 
-    public Profile(){}
-    //constructors
-    public Profile(String name, int weight){
-        this.name = name;
-        this.weight = weight;
-        this.calc = new Calc(weight);
-    }
+    // Constructor
+    public Profile(){ }
 
-    public Profile(String name, double totalinsulin){
-        this.name = name;
-        this.calc = new Calc(totalinsulin);
-    }
 
-    public Profile(String name, double weight, int targetbloodsugar){
-        this.name = name;
-        this.weight = weight;
-        this.targetBloodSugar = targetbloodsugar;
-        this.calc = new Calc(weight, targetbloodsugar);
-    }
-
-    public Profile(String name, double weight,int targetbloodsugar, int diabetesAge){
-        this.name = name;
-        this.weight = weight;
-        this.targetBloodSugar = targetbloodsugar;
-        this.calc = new Calc(weight, targetbloodsugar,diabetesAge);
-    }
 
     // getters
     public String getName(){
@@ -57,7 +41,6 @@ public class Profile {
     public double getWeight(){
         return this.weight;
     }
-
 
     public int getTargetBloodSugar(){
         return this.targetBloodSugar;
@@ -82,6 +65,12 @@ public class Profile {
     public int getDinnerRestriction() {
         return dinnerRestriction;
     }
+  
+    public int getInsulinSensivity(){
+        return this.insulinSensivity;
+    }
+
+    public ArrayList<String> getFavourites() { return favourites; }
 
     //setters
 
@@ -124,7 +113,7 @@ public class Profile {
     public void setDinnerRestriction(int dinnerRestriction) {
         this.dinnerRestriction = dinnerRestriction;
     }
-
+  
     public void setInstantBloodSugar(int instantBloodSugar) {
         this.instantBloodSugar = instantBloodSugar;
     }
@@ -136,7 +125,18 @@ public class Profile {
         this.insulinSensivity = insulinSensivity;
     }
 
-    public int getInsulinSensivity(){
-        return this.insulinSensivity;
+    public void setFavourites(ArrayList<String> favourites) {
+        this.favourites = favourites;
     }
+
+    public void addFoodToFavourites(Food food) {
+        food.setFavourite();
+        this.favourites.add(food.getName());
+    }
+
+    public void removeFoodFromFavourites(Food food) {
+        food.removeFavourite();
+        this.favourites.remove(food.getName());
+    }
+
 }
