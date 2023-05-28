@@ -60,6 +60,9 @@ public class Food implements Parcelable {
     public double getCarbAmount() {
         return carbAmount;
     }
+    public double getGramAmountRespectToCarb(double carb){
+        return carb*100/getCarbAmount();
+    }
     public double getCarbAmountRespectToGram(){
         return carbAmount*gram/100;
     }

@@ -35,6 +35,7 @@ public class DistributionFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
     private RecyclerView recyclerView;
     private EditText totalCarbEditText;
+    private TextView total;
     private FoodAdapter adapter;
     private ProfileManager profileManager;
     private Profile profile;
@@ -88,9 +89,9 @@ public class DistributionFragment extends Fragment {
 
         totalCarbEditText = view.findViewById(R.id.totalCarbEditText);
         recyclerView = view.findViewById(R.id.recyclerView);
+        total = view.findViewById(R.id.total);
 
         adapter = new FoodAdapter(Food.setData(this.meal),requireContext());
-        //adapter.updateEditTexts();
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager manager = new LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(manager);
@@ -104,10 +105,11 @@ public class DistributionFragment extends Fragment {
         else {
             carbRestriction = profile.getDinnerRestriction();
         }
-        //checked
         if(carbRestriction!=-1){
             totalCarbEditText.setText(String.valueOf(carbRestriction));
             adapter.distributeFoods(carbRestriction);
+            total.setText("Total Carbs: "+String.valueOf(adapter.getTotalCarbohydrates()));
+
         }
 
         totalCarbEditText.addTextChangedListener(new TextWatcher() {
@@ -118,21 +120,35 @@ public class DistributionFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                //checked condition
-                if(adapter.isAllGramInfoFull()){
+                String str = totalCarbEditText.getText().toString();
+                if(!str.equals("")){
+                    carbRestriction=Integer.parseInt(str);
+                    adapter.makeZero();
+                }
+                else {
+                    carbRestriction = -1;
+                    adapter.makeMinusOne();
+                }
+
+                if(carbRestriction!=-1 && adapter.isAllGramInfoFull()){
                     //TODO total karbonhidratı kontrol et ve hepsini aynı oranda arttır veya azalt
-                    adapter.distributeProportional(carbRestriction, totalCarbEditText);
-                    //adapter.notifyDataSetChanged();
+
+                    adapter.distributeExcept(carbRestriction);
+
                 }
                 //checked
-                else if(adapter.isAllGramInfoNull()){
-                    carbRestriction = Integer.parseInt(totalCarbEditText.getText().toString());
+                else if(carbRestriction!=-1 && adapter.isAllGramInfoNull()){
+
                     adapter.distributeExcept(carbRestriction);
-                    //adapter.notifyDataSetChanged();
                 }
                 else{
+                    Toast.makeText(requireContext(), "there is a serious problem", Toast.LENGTH_SHORT).show();
+
+                }
+                /*else{
                     //TODO mevcut choyu hesapla. totalden büyükse yoksay ve distribute. totalden küçükse yalnızca boş olanları distribute.
                     double carbs = Calc.calculateCarbs(adapter.getFullGramFoods());
+                    Toast.makeText(requireContext(), "5", Toast.LENGTH_SHORT).show();
 
                     if(carbs>carbRestriction){
                         adapter.distributeProportional(carbRestriction, totalCarbEditText);
@@ -145,14 +161,9 @@ public class DistributionFragment extends Fragment {
                         Toast.makeText(requireContext(),"2",Toast.LENGTH_SHORT).show();
 
                     }
-                }
-                String str = totalCarbEditText.getText().toString();
-                if(!str.equals("")){
-                    carbRestriction=Integer.parseInt(str);
-                }
-                else {
-                    carbRestriction = 0;
-                }
+                }*/
+
+                total.setText("Total Carbs: "+String.valueOf(adapter.getTotalCarbohydrates()));
             }
 
             @Override
@@ -179,41 +190,67 @@ public class DistributionFragment extends Fragment {
             public void OnButtonCLick(Food food, int position) {
                 ArrayList<Food> newArr = adapter.getFoodsExcept(position);
                 adapter.removeItem(position);
-                //checked condition
                 if(carbRestriction!=-1) {
                     adapter.distributeExcept(carbRestriction);
-                    //adapter.notifyDataSetChanged();
                 }
                 else{
                     adapter.setFoods(newArr);
-                    //adapter.notifyDataSetChanged();
                     System.out.println("here");
                 }
+                total.setText("Total Carbs: "+String.valueOf(adapter.getTotalCarbohydrates()));
             }
 
             @Override
-            public void OnGramTextChanged(Food food, int position, String gram) {
+            public int OnGramTextChanged(Food food, int position, String gram) {
+
                 if(carbRestriction!=-1) {
                     if (!gram.equals("")) {
                         if (food.getCarbAmountRespectToGram(Double.valueOf(gram)) > carbRestriction) {
+                            food.setGram((int)food.getGramAmountRespectToCarb(carbRestriction));
+
+                            adapter.distributeExcept(carbRestriction,food);
+                            adapter.setListenerActive(false);
+                            /*for(int i=0;i<adapter.getFoods().size();i++){
+                                adapter.notifyItemChanged(i);
+                            }*/
+                            Toast.makeText(requireContext(),": **"+String.valueOf(food.getGram()),Toast.LENGTH_SHORT).show();
+                            adapter.notifyDataSetChanged();
+
                             //Toast.makeText(requireContext(), "Not Possible!", Toast.LENGTH_SHORT).show();
-                            food.setGram(food.getGram());
-                            adapter.notifyItemChanged(position);
+                            return 0;
                         }
+
                         else {
 
                             food.setGram(Integer.valueOf(gram));
-                            Toast.makeText(requireContext(), "here", Toast.LENGTH_SHORT).show();
                             adapter.distributeExcept(carbRestriction, food);
-                            //adapter.notifyDataSetChanged();
+
+                            return 1;
                         }
+
+
                     }
+
                 }
-                //checked
                 else if (!gram.equals("")) {
-                    food.setGram(Integer.valueOf(gram));
+                    int previousGram = food.getGram();
+                    int newGram = Integer.valueOf(gram);
+
+                    if (previousGram != newGram) {
+                        food.setGram(newGram);
+                        adapter.notifyItemChanged(position);
+                    }
+
                 }
+                else{
+                    food.setGram(-1);
+                }
+                total.setText("Total Carbs: "+String.valueOf(adapter.getTotalCarbohydrates()));
+                adapter.setListenerActive(true);
+                return 3;
+
             }
+
 
         });
 
@@ -228,16 +265,6 @@ public class DistributionFragment extends Fragment {
             }
         });
 
-       /*TextView text = view.findViewById(R.id.textView2);
-
-        String c = "";
-
-        for (Food food : meal)
-        {
-            c = c + food.toString() + "  ";
-        }
-
-        text.setText(c);*/
 
         return view;
     }

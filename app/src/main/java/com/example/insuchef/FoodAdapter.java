@@ -24,12 +24,22 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodHolder> {
     private Context context;
     private OnItemClickListener listener;
     private ArrayList<EditText> editTexts;
+    private boolean isListenerActive = true;
 
+    public ArrayList<Food> getFoods() {
+        return foods;
+    }
+
+    public void setListenerActive(boolean active) {
+        isListenerActive = active;
+    }
+    public boolean getListenerActive() {
+        return isListenerActive;
+    }
 
     public FoodAdapter(ArrayList<Food> foods, Context context) {
         this.foods = foods;
         this.context = context;
-        //this.editTexts = new ArrayList<>();
     }
 
     @NonNull
@@ -43,8 +53,6 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodHolder> {
     public void onBindViewHolder(@NonNull FoodHolder holder, int position) {
         Food food = foods.get(position);
         holder.setData(food);
-        //editTexts.add(holder.gram);
-        //editTextMap.put(food, holder.gram);
     }
     public ArrayList<EditText> getEditTexts() {
         return editTexts;
@@ -63,18 +71,21 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodHolder> {
         EditText gram;
         ImageButton cancelButton;
         CardView cardView;
+        TextView test;
+
         public FoodHolder(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.foodName);
             gram = itemView.findViewById(R.id.editTextNumber);
             cardView = itemView.findViewById(R.id.cardView);
             cancelButton = itemView.findViewById(R.id.imageButton);
+            test = itemView.findViewById(R.id.grText);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     int position = getAdapterPosition();
-                    if(listener != null && position != RecyclerView.NO_POSITION){
+                    if(listener != null  && position != RecyclerView.NO_POSITION){
                         listener.OnItemClick(foods.get(position),position);
                         if(foods.get(position).isLocked()){
                             cardView.setCardBackgroundColor(Color.LTGRAY);
@@ -96,6 +107,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodHolder> {
                         listener.OnButtonCLick(foods.get(position), position);
                         for(int i=0;i<foods.size();i++){
                             gram.setText(String.valueOf(foods.get(i).getGram()) );
+                            //test.setText(String.valueOf(foods.get(i).getCarbAmountRespectToGram()));
                         }
                         notifyDataSetChanged();
                     }
@@ -110,31 +122,45 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodHolder> {
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
                     int position = getAdapterPosition();
+
                     if (listener != null && position != RecyclerView.NO_POSITION) {
-                        listener.OnGramTextChanged(foods.get(position), position, s.toString());
+                        int is = listener.OnGramTextChanged(foods.get(position), position, s.toString());
+                        if(is==0){
+                            gram.setText(String.valueOf(foods.get(position).getGram()));
+                            gram.setSelection(gram.getText().length());
+
+                        }
+                        else if(is==1){
+                            //notifyDataSetChanged();
+                        }
                     }
-                    //notifyDataSetChanged();
                 }
 
                 @Override
                 public void afterTextChanged(Editable s) {
                 }
+
             });
+
         }
         public void setData(Food food){
             this.name.setText(food.getName());
+
             if (food.getGram() != -1) {
                 this.gram.setText(String.valueOf(food.getGram()));
+                this.test.setText(String.valueOf(food.getCarbAmountRespectToGram()));
             } else {
                 this.gram.setText("");
+                this.test.setText("0");
             }
+            this.gram.setSelection(gram.getText().length());
         }
 
     }
     public interface OnItemClickListener{
         void OnItemClick(Food food, int position);
         void OnButtonCLick(Food food, int position);
-        void OnGramTextChanged(Food food, int position, String gram);
+        int OnGramTextChanged(Food food, int position, String gram);
 
     }
     public void setOnItemClickListener(OnItemClickListener listener){
@@ -155,8 +181,8 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodHolder> {
         return true;
     }
     public boolean isAllGramInfoFull(){
-        for(Food food: foods){
-            if(food.getGram()==-1){
+        for(Food food: getUnlockedFoods()){
+            if(food.getGram()==-1||food.getGram()==0){
                 return false;
             }
         }
@@ -210,9 +236,10 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodHolder> {
 
     public void distributeExcept(int carbRestriction,Food food){
         //kilitli olmayanlar arasında food dışındakilere total kho dağıt
+        food.setLocked(true);
         ArrayList<Food> unlockedFoods = getUnlockedFoods();
-        unlockedFoods.remove(food);
         distributeFoods(unlockedFoods,(int)(carbRestriction-Calc.calculateCarbs(getLockedGramFoods())));
+        food.setLocked(false);
 
     }
     public void distributeExcept(int carbRestriction){
@@ -248,29 +275,42 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodHolder> {
                 System.out.println(foods.get(i).getGram());
             }
         }
-        //updateEditTexts();
     }
     public void distributeFoods(ArrayList<Food> foods,int carbCount){
-        double eachCarbAmount = (double) carbCount/foods.size();
-        for(int i=0;i<foods.size();i++){
-            foods.get(i).setGram((int)(eachCarbAmount*100/foods.get(i).getCarbAmount()));
-            //updateEditTexts();
-            System.out.println((int)(eachCarbAmount*100/foods.get(i).getCarbAmount()));
+        if(isListenerActive){
+            double eachCarbAmount = (double) carbCount/foods.size();
+            Toast.makeText(context.getApplicationContext(), String.valueOf(eachCarbAmount),Toast.LENGTH_SHORT).show();
+            for(int i=0;i<foods.size();i++){
+                foods.get(i).setGram((int)(eachCarbAmount*100/foods.get(i).getCarbAmount()));
+
+                System.out.println((int)(eachCarbAmount*100/foods.get(i).getCarbAmount()));
+            }
         }
+
+
     }
+
     public void distributeFoods(int carbCount){
         distributeFoods(foods,carbCount);
     }
-    public void updateEditTexts() {
-        for (int i = 0; i < foods.size(); i++) {
-            Food food = foods.get(i);
-            EditText editText = editTexts.get(i);
-            if (food.getGram() != -1) {
-                editText.setText(String.valueOf(food.getGram()));
-            } else {
-                editText.setText("");
-            }
+    public void makeZero(){
+        for(int i=0;i<foods.size();i++){
+            foods.get(i).setGram(0);
         }
     }
+    public void makeMinusOne(){
+        for(int i=0;i<foods.size();i++){
+            foods.get(i).setGram(-1);
+        }
+    }
+    public double getTotalCarbohydrates() {
+        double to = 0;
+        for (Food food : foods) {
+            if (food.getCarbAmountRespectToGram() >= 0) {
+                to += food.getCarbAmountRespectToGram();
+            }
+        }
+        return to;
 
+    }
 }
