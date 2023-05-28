@@ -66,14 +66,21 @@ public class CalculationFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_calculation, container, false);
         profileManager = ProfileManager.getInstance(requireContext());
         profile = profileManager.getProfile();
+        Calc calc = new Calc();
+        calc.setTargetBloodSugar(profile.getTargetBloodSugar());
+        calc.setBloodSugar(profile.getInstantBloodSugar());
+        calc.setIsf(profile.getInsulinSensivity());
+        calc.setRatio(profile.getCarbInsulinRatio());
+        calc.setCarbCount(100);
+        double bolus = calc.calculateBolus();
 
         TextView carbResult = view.findViewById(R.id.carbResult);
         TextView insulinResult = view.findViewById(R.id.insulinResult);
         TextView timeResult = view.findViewById(R.id.timeResult);
 
-        carbResult.setText("");
-        insulinResult.setText("");
-        timeResult.setText("");
+        carbResult.setText(calc.getCarbResult(100));
+        insulinResult.setText(calc.getInsulinResult(bolus));
+        timeResult.setText(calc.getTimeResult(bolus));
 
 
 
