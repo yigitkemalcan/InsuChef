@@ -1,6 +1,5 @@
 package com.example.insuchef;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -12,11 +11,6 @@ import android.widget.Button;
 
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
-import org.json.JSONException;
-
-import java.io.File;
-import java.io.IOException;
 
 /**
  * A simple {@link Fragment} subclass.
