@@ -112,12 +112,12 @@
 
         <Button
             android:id="@+id/distribution"
-            android:layout_width="140dp"
+            android:layout_width="150dp"
             android:layout_height="50dp"
             android:background="@drawable/button"
             android:text="DISTRIBUTION"
             android:textColor="#FFFFFF"
-            android:textSize="15sp"
+            android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
