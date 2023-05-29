@@ -5,8 +5,6 @@ import android.os.Parcelable;
 import java.util.ArrayList;
 import androidx.annotation.NonNull;
 
-import java.util.ArrayList;
-
 
 public class Food implements Parcelable {
 
