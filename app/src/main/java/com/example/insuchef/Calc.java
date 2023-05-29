@@ -176,22 +176,22 @@ public class Calc{
 
         String str = "";
         if (bolus < 54){
-            str = str + "You need to inject insulin during the meal";
+            str = str + "You need to inject insulin during the meal.";
         }
         else if (bolus >= 54 && bolus < 72){
-            str = str + "You need to inject insulin during the meal";
+            str = str + "You need to inject insulin during the meal.";
         }
         else if (bolus >= 72 && bolus < 108){
-            str = str + "You need to inject insulin 5-10 minutes before the meal";
+            str = str + "You need to inject insulin 5-10 minutes before the meal.";
         }
         else if (bolus >= 108 && bolus < 198){
-            str = str + "You need to inject insulin 10-15 minutes before the meal";
+            str = str + "You need to inject insulin 10-15 minutes before the meal.";
         }
         else if (bolus >= 198 && bolus < 270){
-            str = str + "You need to inject insulin 15-20 minutes before the meal";
+            str = str + "You need to inject insulin 15-20 minutes before the meal.";
         }
         else{
-            str = str + "You need to inject insulin at least 20 minutes before the meal";
+            str = str + "You need to inject insulin at least 20 minutes before the meal.";
         }
         return str;
     }
