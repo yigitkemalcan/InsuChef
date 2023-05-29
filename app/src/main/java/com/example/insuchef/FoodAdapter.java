@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -148,10 +149,13 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodHolder> {
 
             if (food.getGram() != -1) {
                 this.gram.setText(String.valueOf(food.getGram()));
-                this.test.setText(String.valueOf(food.getCarbAmountRespectToGram()));
+                double num = food.getCarbAmountRespectToGram();
+
+                DecimalFormat df = new DecimalFormat("#.##");
+                this.test.setText("gr ("+String.valueOf(df.format(num)+" cho)"));
             } else {
                 this.gram.setText("");
-                this.test.setText("0");
+                this.test.setText("gr (0 cho)");
             }
             this.gram.setSelection(gram.getText().length());
         }
@@ -234,11 +238,13 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodHolder> {
         return fullGramFoods;
     }
 
-    public void distributeExcept(int carbRestriction,Food food){
+    /*public void distributeExcept(int carbRestriction,Food food){
         //kilitli olmayanlar arasında food dışındakilere total kho dağıt
         food.setLocked(true);
         ArrayList<Food> unlockedFoods = getUnlockedFoods();
+        //Toast.makeText(context.getApplicationContext(), String.valueOf(carbRestriction-Calc.calculateCarbs(getLockedGramFoods())),Toast.LENGTH_SHORT).show();
         distributeFoods(unlockedFoods,(int)(carbRestriction-Calc.calculateCarbs(getLockedGramFoods())));
+
         food.setLocked(false);
 
     }
@@ -282,7 +288,6 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodHolder> {
             Toast.makeText(context.getApplicationContext(), String.valueOf(eachCarbAmount),Toast.LENGTH_SHORT).show();
             for(int i=0;i<foods.size();i++){
                 foods.get(i).setGram((int)(eachCarbAmount*100/foods.get(i).getCarbAmount()));
-
                 System.out.println((int)(eachCarbAmount*100/foods.get(i).getCarbAmount()));
             }
         }
@@ -302,7 +307,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodHolder> {
         for(int i=0;i<foods.size();i++){
             foods.get(i).setGram(-1);
         }
-    }
+    }*/
     public double getTotalCarbohydrates() {
         double to = 0;
         for (Food food : foods) {

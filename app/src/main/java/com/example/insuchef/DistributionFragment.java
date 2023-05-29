@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 /**
@@ -44,6 +45,8 @@ public class DistributionFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     private int carbRestriction;
+    public static double totCarb=-1;
+
 
     public DistributionFragment() {
         // Required empty public constructor
@@ -105,13 +108,17 @@ public class DistributionFragment extends Fragment {
         else {
             carbRestriction = profile.getDinnerRestriction();
         }
+        //checked
         if(carbRestriction!=-1){
             totalCarbEditText.setText(String.valueOf(carbRestriction));
-            adapter.distributeFoods(carbRestriction);
-            total.setText("Total Carbs: "+String.valueOf(adapter.getTotalCarbohydrates()));
+            //adapter.distributeFoods(carbRestriction);
+            double num = adapter.getTotalCarbohydrates();
+
+            DecimalFormat df = new DecimalFormat("#.##");
+            total.setText("Total Carbs: "+df.format(num));
 
         }
-
+        //checked
         totalCarbEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -123,14 +130,20 @@ public class DistributionFragment extends Fragment {
                 String str = totalCarbEditText.getText().toString();
                 if(!str.equals("")){
                     carbRestriction=Integer.parseInt(str);
-                    adapter.makeZero();
+                    //adapter.makeZero();
                 }
                 else {
                     carbRestriction = -1;
-                    adapter.makeMinusOne();
+                    //adapter.makeMinusOne();
+                }
+                if (adapter.getTotalCarbohydrates() > carbRestriction) {
+                    //food.setGram((int)food.getGramAmountRespectToCarb(carbRestriction-Calc.calculateCarbs(adapter.getFoods())));
+                    Toast.makeText(requireContext(), "Carb limit exceeded!", Toast.LENGTH_SHORT).show();
+
                 }
 
-                if(carbRestriction!=-1 && adapter.isAllGramInfoFull()){
+
+                /*if(carbRestriction!=-1 ){
                     //TODO total karbonhidratı kontrol et ve hepsini aynı oranda arttır veya azalt
 
                     adapter.distributeExcept(carbRestriction);
@@ -146,7 +159,6 @@ public class DistributionFragment extends Fragment {
 
                 }
                 /*else{
-                    //TODO mevcut choyu hesapla. totalden büyükse yoksay ve distribute. totalden küçükse yalnızca boş olanları distribute.
                     double carbs = Calc.calculateCarbs(adapter.getFullGramFoods());
                     Toast.makeText(requireContext(), "5", Toast.LENGTH_SHORT).show();
 
@@ -161,28 +173,28 @@ public class DistributionFragment extends Fragment {
                         Toast.makeText(requireContext(),"2",Toast.LENGTH_SHORT).show();
 
                     }
-                }*/
+                }
 
-                total.setText("Total Carbs: "+String.valueOf(adapter.getTotalCarbohydrates()));
+                total.setText("Total Carbs: "+String.valueOf(adapter.getTotalCarbohydrates()));*/
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                adapter.notifyDataSetChanged();
+                //adapter.notifyDataSetChanged();
             }
         });
         adapter.setOnItemClickListener(new FoodAdapter.OnItemClickListener() {
             @Override
             public void OnItemClick(Food food, int position) {
 
-                if (food.isLocked()) {
+                /*if (food.isLocked()) {
                     food.setLocked(false);
 
                 } else if (food.getGram() == -1) {
                     Toast.makeText(requireContext(), "Not Possible!", Toast.LENGTH_SHORT).show();
                 } else {
                     food.setLocked(true);
-                }
+                }*/
 
             }
 
@@ -190,49 +202,58 @@ public class DistributionFragment extends Fragment {
             public void OnButtonCLick(Food food, int position) {
                 ArrayList<Food> newArr = adapter.getFoodsExcept(position);
                 adapter.removeItem(position);
-                if(carbRestriction!=-1) {
+                /*if(carbRestriction!=-1) {
                     adapter.distributeExcept(carbRestriction);
                 }
-                else{
+                else{*/
                     adapter.setFoods(newArr);
                     System.out.println("here");
-                }
-                total.setText("Total Carbs: "+String.valueOf(adapter.getTotalCarbohydrates()));
+                //}
+                double num = adapter.getTotalCarbohydrates();
+
+                DecimalFormat df = new DecimalFormat("#.##");
+                total.setText("Total Carbs: "+df.format(num));
             }
 
             @Override
             public int OnGramTextChanged(Food food, int position, String gram) {
 
-                if(carbRestriction!=-1) {
+                /*if(carbRestriction!=-1) {
                     if (!gram.equals("")) {
                         if (food.getCarbAmountRespectToGram(Double.valueOf(gram)) > carbRestriction) {
                             food.setGram((int)food.getGramAmountRespectToCarb(carbRestriction));
+                            //adapter.setListenerActive(false);
+                            //adapter.distributeExcept(carbRestriction,food);
+                            //adapter.notifyDataSetChanged();
+                            total.setText("Total Carbs: "+String.valueOf(Calc.calculateCarbs(adapter.getFoods())));
 
-                            adapter.distributeExcept(carbRestriction,food);
-                            adapter.setListenerActive(false);
-                            /*for(int i=0;i<adapter.getFoods().size();i++){
-                                adapter.notifyItemChanged(i);
-                            }*/
-                            Toast.makeText(requireContext(),": **"+String.valueOf(food.getGram()),Toast.LENGTH_SHORT).show();
-                            adapter.notifyDataSetChanged();
-
-                            //Toast.makeText(requireContext(), "Not Possible!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(requireContext(), "Carb limit exceeded!", Toast.LENGTH_SHORT).show();
                             return 0;
                         }
 
                         else {
 
                             food.setGram(Integer.valueOf(gram));
-                            adapter.distributeExcept(carbRestriction, food);
 
+                            /*adapter.distributeExcept(carbRestriction, food);
+                            //adapter.notifyDataSetChanged();
+                            if (!recyclerView.isComputingLayout()) {
+                                for(int i=0;i<adapter.getFoods().size();i++){
+                                    adapter.setListenerActive(false);
+                                    adapter.getFoods().set(i, adapter.getFoods().get(i));
+                                    adapter.notifyItemChanged(i);
+                                }
+
+                            }
+                            total.setText("Tot Carb: "+String.valueOf(Calc.calculateCarbs(adapter.getFoods())));
                             return 1;
                         }
 
 
                     }
 
-                }
-                else if (!gram.equals("")) {
+                }*/
+                if (!gram.equals("")) {
                     int previousGram = food.getGram();
                     int newGram = Integer.valueOf(gram);
 
@@ -240,12 +261,20 @@ public class DistributionFragment extends Fragment {
                         food.setGram(newGram);
                         adapter.notifyItemChanged(position);
                     }
+                    if (adapter.getTotalCarbohydrates() > carbRestriction) {
+                        //food.setGram((int)food.getGramAmountRespectToCarb(carbRestriction-Calc.calculateCarbs(adapter.getFoods())));
+                        Toast.makeText(requireContext(), "Carb limit exceeded!", Toast.LENGTH_SHORT).show();
+
+                    }
 
                 }
                 else{
                     food.setGram(-1);
                 }
-                total.setText("Total Carbs: "+String.valueOf(adapter.getTotalCarbohydrates()));
+                double num = adapter.getTotalCarbohydrates();
+
+                DecimalFormat df = new DecimalFormat("#.##");
+                total.setText("Total Carbs: "+df.format(num));
                 adapter.setListenerActive(true);
                 return 3;
 
@@ -258,6 +287,7 @@ public class DistributionFragment extends Fragment {
         instantInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                totCarb = adapter.getTotalCarbohydrates();
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.fragmentContainer, new InstantInformationFragment());
