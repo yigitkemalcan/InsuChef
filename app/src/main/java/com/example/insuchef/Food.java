@@ -41,6 +41,7 @@ public class Food implements Parcelable {
         isSelected = in.readByte() != 0;
     }
 
+    // Parcelable
     public static final Creator<Food> CREATOR = new Creator<Food>() {
         @Override
         public Food createFromParcel(Parcel in) {
@@ -102,7 +103,15 @@ public class Food implements Parcelable {
 
     @Override
     public String toString() {
-        return this.name;
+
+        String s = "Name: " + this.name + "\n\n";
+        s += "Macronutrients (per 100g): " + "\n\n";
+        s += "Carbs: " + this.carbAmount + "\n";
+        s += "Protein: " + this.proteinAmount + "\n";
+        s += "Fat: " + this.fatAmount + "\n";
+        s += "Calories: " + this.calories;
+
+        return s;
     }
 
     // Selection

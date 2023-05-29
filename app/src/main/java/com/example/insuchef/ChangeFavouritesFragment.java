@@ -164,7 +164,7 @@ public class ChangeFavouritesFragment extends Fragment {
             TextView text = view.findViewById(R.id.customListLayout);
 
             if (food != null) {
-                text.setText(food.toString());
+                text.setText(food.getName());
             }
 
             if (food.isFavourite()) {

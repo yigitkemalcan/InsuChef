@@ -1,7 +1,9 @@
 package com.example.insuchef;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.os.Bundle;
 
 import androidx.appcompat.widget.SearchView;
@@ -14,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -102,7 +105,7 @@ public class MealSelectionFragment extends Fragment {
         SearchView searchBar = view.findViewById(R.id.searchBar);
         ListView foodListView = view.findViewById(R.id.foodListView);
 
-        MealSelectionAdapter arrayAdapter = new MealSelectionAdapter(this.getActivity(), R.layout.custom_list_layout, foodList, this);
+        MealSelectionAdapter arrayAdapter = new MealSelectionAdapter(this.getActivity(), R.layout.custom_row_meal_selection, foodList, this);
         foodListView.setAdapter(arrayAdapter);
 
         searchBar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -162,10 +165,12 @@ public class MealSelectionFragment extends Fragment {
                 view = inflater.inflate(mResource, parent, false);
             }
 
-            TextView text = view.findViewById(R.id.customListLayout);
+
+            TextView text = view.findViewById(R.id.textMealSelect);
+            ImageButton infoButton = view.findViewById(R.id.infoButton);
 
             if (food != null) {
-                text.setText(food.toString());
+                text.setText(food.getName());
             }
 
             if (food.isFavourite()) {
@@ -211,6 +216,20 @@ public class MealSelectionFragment extends Fragment {
                     }
 
                     notifyDataSetChanged();
+                }
+            });
+
+            infoButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(mContext);
+                    dialogBuilder.setTitle("Food Information");
+                    dialogBuilder.setMessage(food.toString());
+                    AlertDialog dialog = dialogBuilder.create();
+                    dialog.setCanceledOnTouchOutside(true);
+                    dialog.setCancelable(true);
+                    dialog.show();
                 }
             });
 
