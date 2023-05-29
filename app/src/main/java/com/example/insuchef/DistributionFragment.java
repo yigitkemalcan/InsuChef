@@ -138,7 +138,7 @@ public class DistributionFragment extends Fragment {
                 }
                 if (adapter.getTotalCarbohydrates() > carbRestriction) {
                     //food.setGram((int)food.getGramAmountRespectToCarb(carbRestriction-Calc.calculateCarbs(adapter.getFoods())));
-                    Toast.makeText(requireContext(), "Carb limit exceeded!", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(requireContext(), "Carb limit exceeded!", Toast.LENGTH_SHORT).show();
 
                 }
 
@@ -288,10 +288,14 @@ public class DistributionFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 totCarb = adapter.getTotalCarbohydrates();
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.fragmentContainer, new InstantInformationFragment());
-                fragmentTransaction.commit();
+                if (totCarb > carbRestriction){}
+                else{
+                    FragmentManager fragmentManager = getFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.fragmentContainer, new InstantInformationFragment());
+                    fragmentTransaction.commit();
+                }
+
             }
         });
 

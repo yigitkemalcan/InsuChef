@@ -71,7 +71,7 @@ public class CalculationFragment extends Fragment {
         calc.setBloodSugar(profile.getInstantBloodSugar());
         calc.setIsf(profile.getInsulinSensivity());
         calc.setRatio(profile.getCarbInsulinRatio());
-        double carb = 100;
+        double carb = DistributionFragment.totCarb;
         calc.setCarbCount(carb);
         double bolus = calc.calculateBolus();
 

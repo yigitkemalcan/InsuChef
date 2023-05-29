@@ -38,7 +38,9 @@
                     android:id="@+id/textView3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Total Carbs:" />
+                    android:text="Carb Restriction:"
+                    android:textColor="#000000"
+                    android:textSize="16sp" />
 
                 <EditText
                     android:id="@+id/totalCarbEditText"
@@ -71,9 +73,11 @@
                     android:id="@+id/total"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif"
                     android:text="Total Carbs"
-                    android:textStyle="bold|italic"
-                    android:textSize="20sp" />
+                    android:textColor="#000000"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
                 <Button
                     android:id="@+id/instantInfo"
