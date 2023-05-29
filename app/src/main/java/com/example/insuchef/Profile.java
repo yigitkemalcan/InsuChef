@@ -1,77 +1,37 @@
 package com.example.insuchef;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.Set;
+
 // this class holds peoples information in different person objects
 // this class can be used when creating the profile page
 public class Profile {
-
-    private static int numberOfProfiles;
     private String name;
-
-    public int getNumberOfMeals() {
-        return numberOfMeals;
-    }
-
-    public void setNumberOfMeals(int numberOfMeals) {
-        this.numberOfMeals = numberOfMeals;
-    }
-
-    public int getBreakfastRestriction() {
-        return breakfastRestriction;
-    }
-
-    public int getLunchRestriction() {
-        return lunchRestriction;
-    }
-
-    public int getDinnerRestriction() {
-        return dinnerRestriction;
-    }
-
-    //private int age;
     private double weight;
-    private int numberOfMeals;
     private int breakfastRestriction;
     private int lunchRestriction;
     private int dinnerRestriction;
     private int targetBloodSugar;
     private int diabetesAge; // how many years does the patient deal with diabetes
     private Calc calc;
+    private ArrayList<String> favourites;
+    private int insulinSensivity;
+    private int instantBloodSugar;
+    private int carbInsulinRatio;
 
-    public Profile(){}
-    //constructors
-    public Profile(String name, double weight){
-        this.name = name;
-        this.weight = weight;
-        this.calc = new Calc(weight);
-    }
+    private ArrayList<Food> addedFoods;
 
-    public Profile(String name, double totalinsulin, int numberofmeals){
-        this.name = name;
-        this.numberOfMeals = numberofmeals;
-        this.calc = new Calc(totalinsulin,numberofmeals);
-    }
+    // Constructor
+    public Profile(){ }
 
-    public Profile(String name, double weight, int numberofmeals, int targetbloodsugar){
-        this.name = name;
-        this.weight = weight;
-        this.numberOfMeals = numberofmeals;
-        this.targetBloodSugar = targetbloodsugar;
-        this.calc = new Calc(weight, targetbloodsugar, numberofmeals);
-    }
 
-    public Profile(String name, double weight, int numberofmeals, int targetbloodsugar, int diabetesAge){
-        this.name = name;
-        this.weight = weight;
-        this.numberOfMeals = numberofmeals;
-        this.targetBloodSugar = targetbloodsugar;
-        this.calc = new Calc(weight, targetbloodsugar, numberofmeals, diabetesAge);
-    }
 
     // getters
-    public static int getNumberOfProfiles(){
-        return numberOfProfiles;
-    }
-
     public String getName(){
         return this.name;
     }
@@ -82,10 +42,6 @@ public class Profile {
 
     public double getWeight(){
         return this.weight;
-    }
-
-    public int getnumberOfMeals(){
-        return this.numberOfMeals;
     }
 
     public int getTargetBloodSugar(){
@@ -100,11 +56,25 @@ public class Profile {
         return this.calc;
     }
 
-    //setters
-
-    public static void setNumberOfProfiles(int profilenumber){
-        numberOfProfiles = profilenumber;
+    public int getBreakfastRestriction() {
+        return breakfastRestriction;
     }
+
+    public int getLunchRestriction() {
+        return lunchRestriction;
+    }
+
+    public int getDinnerRestriction() {
+        return dinnerRestriction;
+    }
+  
+    public int getInsulinSensivity(){
+        return this.insulinSensivity;
+    }
+
+    public ArrayList<String> getFavourites() { return favourites; }
+
+    //setters
 
     public void setName(String name){
         this.name = name;
@@ -116,10 +86,6 @@ public class Profile {
 
     public void setWeight(double weight){
         this.weight = weight;
-    }
-
-    public void setnumberOfMeals(int numberofmeals){
-        this.numberOfMeals = numberofmeals;
     }
 
     public void setTargetBloodSugar(int targetbloodsugar){
@@ -149,6 +115,53 @@ public class Profile {
     public void setDinnerRestriction(int dinnerRestriction) {
         this.dinnerRestriction = dinnerRestriction;
     }
+  
+    public void setInstantBloodSugar(int instantBloodSugar) {
+        this.instantBloodSugar = instantBloodSugar;
+    }
+    public void setCarbInsulinRatio(int carbInsulinRatio) {
+        this.carbInsulinRatio = carbInsulinRatio;
+    }
 
+    public void setInsulinSensivity (int insulinSensivity){
+        this.insulinSensivity = insulinSensivity;
+    }
+
+    public void setFavourites(ArrayList<String> favourites) {
+        this.favourites = favourites;
+    }
+
+    public void addFoodToFavourites(Food food) {
+        food.setFavourite();
+        this.favourites.add(food.getName());
+    }
+
+    public void removeFoodFromFavourites(Food food) {
+        food.removeFavourite();
+        this.favourites.remove(food.getName());
+    }
+
+    public ArrayList<Food> getAddedFoods (){
+        return this.addedFoods;
+    }
+
+    public void setAddedFoods (ArrayList<Food> addedFoods){
+        this.addedFoods = addedFoods;
+
+    }
+    public void addFoodToAddedFoods(Food food){
+        this.addedFoods.add(food);
+
+    }
+
+    public int getInstantBloodSugar(){
+        return this.instantBloodSugar;
+
+    }
+
+    public int getCarbInsulinRatio(){
+        return  this.carbInsulinRatio;
+
+    }
 
 }

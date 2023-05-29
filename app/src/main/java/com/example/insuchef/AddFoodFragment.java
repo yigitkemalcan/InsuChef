@@ -4,10 +4,15 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -47,21 +52,59 @@ public class AddFoodFragment extends Fragment {
         return fragment;
     }
 
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+
         }
     }
 
+    ProfileManager profileManager;
+    Profile profile;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_add_food, container, false);
-        Button addNewFood = view.findViewById(R.id.calculate);
+
+        profileManager = ProfileManager.getInstance(requireContext());
+        profile = profileManager.getProfile();
+
+        EditText foodNameEdTxt = view.findViewById(R.id.foodNameEdTxt);
+        EditText carbPerEdTxt = view.findViewById(R.id.carbPerEdTxt);
+        EditText fatPerEdTxt = view.findViewById(R.id.fatPerEdTxt);
+
+        Button addNewFood = view.findViewById(R.id.addFoodButton);
+        addNewFood.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (TextUtils.isEmpty(foodNameEdTxt.getText().toString()) || TextUtils.isEmpty(carbPerEdTxt.getText().toString()) || TextUtils.isEmpty(fatPerEdTxt.getText().toString())){
+                    Toast.makeText(getContext(), "Information is missing", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                        Food food = new Food();
+                        food.setName(foodNameEdTxt.getText().toString());
+                        food.setCarbAmount(Double.parseDouble(carbPerEdTxt.getText().toString()));
+                        food.setFatAmount(Double.parseDouble(fatPerEdTxt.getText().toString()));
+                        profile.addFoodToAddedFoods(food);
+                        profileManager.saveProfile(profile);
+                        for (int i = 0; i < MainPage.foodList.foods.size(); i++){
+                            boolean isPosition = false;
+                            if (food.getName().compareTo(MainPage.foodList.foods.get(i).getName()) < 0){
+                                MainPage.foodList.foods.add(i, food);
+                                break;
+                            }
+                        }
+                        Toast.makeText(getContext(), "Food added", Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        });
 
 
         return view;

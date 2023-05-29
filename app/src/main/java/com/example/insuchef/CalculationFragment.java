@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -55,10 +56,37 @@ public class CalculationFragment extends Fragment {
         }
     }
 
+    ProfileManager profileManager;
+    Profile profile;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_calculation, container, false);
+        View view = inflater.inflate(R.layout.fragment_calculation, container, false);
+        profileManager = ProfileManager.getInstance(requireContext());
+        profile = profileManager.getProfile();
+        Calc calc = new Calc();
+        calc.setTargetBloodSugar(profile.getTargetBloodSugar());
+        calc.setBloodSugar(profile.getInstantBloodSugar());
+        calc.setIsf(profile.getInsulinSensivity());
+        calc.setRatio(profile.getCarbInsulinRatio());
+        double carb = 100;
+        calc.setCarbCount(carb);
+        double bolus = calc.calculateBolus();
+
+        TextView carbResult = view.findViewById(R.id.carbResult);
+        TextView insulinResult = view.findViewById(R.id.insulinResult);
+        TextView timeResult = view.findViewById(R.id.timeResult);
+
+        carbResult.setText(calc.getCarbResult(carb));
+        insulinResult.setText(calc.getInsulinResult(bolus));
+        timeResult.setText(calc.getTimeResult(bolus));
+
+
+
+        return view;
+
+
     }
 }

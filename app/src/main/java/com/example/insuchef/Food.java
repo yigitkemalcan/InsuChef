@@ -5,8 +5,6 @@ import android.os.Parcelable;
 import java.util.ArrayList;
 import androidx.annotation.NonNull;
 
-import java.util.ArrayList;
-
 
 public class Food implements Parcelable {
 
@@ -17,6 +15,8 @@ public class Food implements Parcelable {
     private double fatAmount;
     private double calories;
     private boolean isSelected;
+
+    private boolean isFavourite;
     private boolean isLocked = false;
     private int gram=-1;
 
@@ -29,7 +29,6 @@ public class Food implements Parcelable {
         this.fatAmount = fat;
         this.calories = calories;
     }
-    Food(){}
 
     protected Food(Parcel in) {
         name = in.readString();
@@ -40,6 +39,7 @@ public class Food implements Parcelable {
         isSelected = in.readByte() != 0;
     }
 
+    // Parcelable
     public static final Creator<Food> CREATOR = new Creator<Food>() {
         @Override
         public Food createFromParcel(Parcel in) {
@@ -82,7 +82,15 @@ public class Food implements Parcelable {
         return calories;
     }
 
+    public boolean isFavourite() { return isFavourite; }
+
     // Food Methods
+
+    public void setFavourite() {
+        this.isFavourite = true;
+    }
+
+    public void removeFavourite() { this.isFavourite = false; }
 
     public void addToMeal(MealSelectionFragment mealFrag) {
 
@@ -94,10 +102,17 @@ public class Food implements Parcelable {
         mealFrag.selectedMeal.remove(this);
     }
 
-
     @Override
     public String toString() {
-        return this.name;
+
+        String s = "Name: " + this.name + "\n\n";
+        s += "Macronutrients (per 100g): " + "\n\n";
+        s += "Carbs: " + this.carbAmount + "\n";
+        s += "Protein: " + this.proteinAmount + "\n";
+        s += "Fat: " + this.fatAmount + "\n";
+        s += "Calories: " + this.calories;
+
+        return s;
     }
 
     // Selection
@@ -108,6 +123,9 @@ public class Food implements Parcelable {
     public void toggleSelected(){
         this.isSelected = !this.isSelected;
     }
+
+    public void removeSelected() { this.isSelected = false; }
+
     public static ArrayList<Food> setData(ArrayList<Food> meal){
         ArrayList<Food> foods = meal;
         /*String[] names = {"bread","apple","pear","carrot","strawberry","soup","milk"};
@@ -126,9 +144,6 @@ public class Food implements Parcelable {
     public int describeContents() {
         return 0;
     }
-    public void setCarbAmount(double carbAmount) {
-        this.carbAmount = carbAmount;
-    }
 
     @Override
     public void writeToParcel(@NonNull Parcel parcel, int i) {
@@ -138,21 +153,6 @@ public class Food implements Parcelable {
         parcel.writeDouble(fatAmount);
         parcel.writeDouble(calories);
         parcel.writeByte((byte) (isSelected ? 1 : 0));
-    }
-    public void setProteinAmount(double proteinAmount) {
-        this.proteinAmount = proteinAmount;
-    }
-
-    public void setFatAmount(double fatAmount) {
-        this.fatAmount = fatAmount;
-    }
-
-    private void setCaloryAmount(int calory) {
-        this.calories = calory;
-    }
-
-    private void setName(String name) {
-        this.name = name;
     }
 
     public int getGram() {
@@ -169,5 +169,22 @@ public class Food implements Parcelable {
 
     public void setGram(int gram) {
         this.gram = gram;
+    }
+
+    public Food(){}
+
+    public void setCarbAmount(double carbAmount){
+        this.carbAmount = carbAmount;
+
+    }
+
+    public void setFatAmount(double fatAmount){
+        this.fatAmount = fatAmount;
+
+    }
+
+    public void setName(String name){
+        this.name = name;
+
     }
 }

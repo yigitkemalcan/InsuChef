@@ -30,24 +30,23 @@ public class Calc{
         }
         return carbs;
     }
-    public Calc(double totalinsulin,int numberofmeals){
+    public Calc(double totalinsulin){
         this.totalInsulin = totalinsulin;
-        this.totalNumberOfMeals =  numberofmeals;
+        this.totalNumberOfMeals = 3;
         this.diabetesAge = 10;
         this.targetBloodSugar = 120;
         this.isf = calculateIsf();
         this.ratio = calculateRatio();
     }
 
-    public Calc(double totalinsulin, int numberofmeals, int targetbloodsugar, int isf, int ratio){
+    public Calc(double totalinsulin, int targetbloodsugar, int isf, int ratio){
         this.totalInsulin = totalinsulin;
-        this.totalNumberOfMeals = numberofmeals;
         this.targetBloodSugar = targetbloodsugar;
         this.isf = isf;
         this.ratio = ratio;
     }
 
-    public Calc(double weight){
+    public Calc(int weight){
         this.weight = weight;
         this.totalInsulin = this.calculateTotal(this.weight);
         this.totalNumberOfMeals = 3;
@@ -57,9 +56,8 @@ public class Calc{
         this.ratio = calculateRatio();
     }
 
-    public Calc(double weight,int targetbloodsugar,int totalnumberofmeals){
+    public Calc(double weight,int targetbloodsugar){
         this.weight = weight;
-        this.totalNumberOfMeals = totalnumberofmeals;
         this.targetBloodSugar = targetbloodsugar;
         this.totalInsulin = this.calculateTotal(this.weight);
         this.diabetesAge = 10;
@@ -67,9 +65,8 @@ public class Calc{
         this.ratio = calculateRatio();
     }
 
-    public Calc(double weight, int targetbloodsugar, int totalnumberofmeals, int diabetesage){
+    public Calc(double weight, int targetbloodsugar,int diabetesage){
         this.weight = weight;
-        this.totalNumberOfMeals = totalnumberofmeals;
         this.targetBloodSugar = targetbloodsugar;
         this.totalInsulin = this.calculateTotal(this.weight);
         this.diabetesAge = diabetesage;
@@ -138,7 +135,7 @@ public class Calc{
     // calculating the totalbolus can change
     public double calculateBolus(){
         this.bolusInsulin = (Math.abs(this.targetBloodSugar - this.bloodSugar) / this.isf) + ((this.carbCount) / (this.ratio));
-        this.count++;
+        /*this.count++;
         if(count <= totalNumberOfMeals)
         {
             this.totalBolus = this.totalBolus + this.bolusInsulin;
@@ -152,7 +149,7 @@ public class Calc{
         if(diabetesAge < 10)
         {
             return (this.bolusInsulin * 0.9); // reduce the insulin by  % 10.
-        }
+        }*/
         return this.bolusInsulin;
     }
 
@@ -163,5 +160,49 @@ public class Calc{
             return (this.totalInsulin * 0.9); // reduce the insulin by  % 10.
         }
         return this.totalInsulin;
+    }
+
+    public Calc(){}
+
+    public void setIsf(double isf) {
+        this.isf = isf;
+    }
+
+    public void setRatio(double ratio){
+        this.ratio = ratio;
+    }
+
+    public String getTimeResult (double bolus){
+
+        String str = "";
+        if (bolus < 54){
+            str = str + "You need to inject insulin during the meal.";
+        }
+        else if (bolus >= 54 && bolus < 72){
+            str = str + "You need to inject insulin during the meal.";
+        }
+        else if (bolus >= 72 && bolus < 108){
+            str = str + "You need to inject insulin 5-10 minutes before the meal.";
+        }
+        else if (bolus >= 108 && bolus < 198){
+            str = str + "You need to inject insulin 10-15 minutes before the meal.";
+        }
+        else if (bolus >= 198 && bolus < 270){
+            str = str + "You need to inject insulin 15-20 minutes before the meal.";
+        }
+        else{
+            str = str + "You need to inject insulin at least 20 minutes before the meal.";
+        }
+        return str;
+    }
+
+    public String getInsulinResult (double bolus){
+        String str = "You need to inject " + (bolus) + " mg/dl insulin.";
+        return str;
+    }
+
+    public String getCarbResult (double carbCount){
+        String str = "Your total carbohydrate consumption is " + carbCount + "gr.";
+        return str;
     }
 }

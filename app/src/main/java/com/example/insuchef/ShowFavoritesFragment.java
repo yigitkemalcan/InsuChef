@@ -1,7 +1,10 @@
 package com.example.insuchef;
 
+import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -10,6 +13,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ListView;
+import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -17,6 +25,8 @@ import android.widget.Button;
  * create an instance of this fragment.
  */
 public class ShowFavoritesFragment extends Fragment {
+
+    ArrayList<Food> favourites;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -56,6 +66,14 @@ public class ShowFavoritesFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        favourites = new ArrayList<>();
+
+        for (Food f : MainPage.foodList.foods) {
+            if (f.isFavourite()) {
+                favourites.add(f);
+            }
+        }
     }
 
     @Override
@@ -64,13 +82,17 @@ public class ShowFavoritesFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_show_favorites, container, false);
 
+        ListView foodListView = view.findViewById(R.id.showFavList);
+        ShowFavouritesAdapter showFavAdapter = new ShowFavouritesAdapter(this.getActivity(), R.layout.custom_list_layout, favourites);
+        foodListView.setAdapter(showFavAdapter);
+
         Button change = view.findViewById(R.id.change);
         change.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentManager fragmentManager = getParentFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.fragmentContainer, new FavoritesFragment());
+                fragmentTransaction.replace(R.id.fragmentContainer, new ChangeFavouritesFragment());
                 fragmentTransaction.commit();
             }
         });
@@ -78,4 +100,35 @@ public class ShowFavoritesFragment extends Fragment {
         return view;
 
     }
+
+    private class ShowFavouritesAdapter extends CustomAdapter {
+
+        private ShowFavouritesAdapter(Context context, int resource, List<Food> objects) {
+            super(context, resource, objects);
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+
+            View view = convertView;
+            Food food = getItem(position);
+            Drawable d = ResourcesCompat.getDrawable(getResources(), R.drawable.star_icon, null);
+
+            if (view == null) {
+                LayoutInflater inflater = LayoutInflater.from(mContext);
+                view = inflater.inflate(mResource, parent, false);
+            }
+
+            TextView text = view.findViewById(R.id.customListLayout);
+
+            if (food != null) {
+                text.setText(food.getName());
+                text.setCompoundDrawablesWithIntrinsicBounds(d, null, null, null);
+            }
+
+            return view;
+        }
+
+    }
+
 }

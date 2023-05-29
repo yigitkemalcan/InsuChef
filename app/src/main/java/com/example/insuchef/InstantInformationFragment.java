@@ -6,10 +6,15 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -58,19 +63,50 @@ public class InstantInformationFragment extends Fragment {
         }
     }
 
+    private ProfileManager profileManager;
+    private Profile profile;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_instant_information, container, false);
+
+        profileManager = ProfileManager.getInstance(requireContext());
+        profile = profileManager.getProfile();
+
+        EditText instantSugar = view.findViewById(R.id.instantSugar);
+        EditText carbRatio = view.findViewById(R.id.carbRatio);
+        EditText targetSugar = view.findViewById(R.id.targetSugar);
+        EditText weight = view.findViewById(R.id.weight);
+
+        targetSugar.setText(String.valueOf(profile.getTargetBloodSugar()));
+        weight.setText(String.valueOf(profile.getInsulinSensivity()));
+
         Button calculate = view.findViewById(R.id.calculate);
         calculate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.fragmentContainer, new CalculationFragment());
-                fragmentTransaction.commit();
+
+                if (TextUtils.isEmpty(instantSugar.getText().toString()) || TextUtils.isEmpty(carbRatio.getText().toString()) || TextUtils.isEmpty(targetSugar.getText().toString()) || TextUtils.isEmpty(weight.getText().toString()) ){
+                    Toast.makeText(getContext(), "Information is missing", Toast.LENGTH_SHORT).show();
+                }
+                else if (Integer.parseInt(instantSugar.getText().toString()) <= 0 || Integer.parseInt(carbRatio.getText().toString()) <= 0 || Integer.parseInt(targetSugar.getText().toString()) <= 0 || Integer.parseInt(weight.getText().toString()) <= 0 ){
+                    Toast.makeText(getContext(), "Information is wrong", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    profile.setInstantBloodSugar(Integer.parseInt(instantSugar.getText().toString()));
+                    profile.setCarbInsulinRatio(Integer.parseInt(carbRatio.getText().toString()));
+                    profile.setTargetBloodSugar(Integer.parseInt(targetSugar.getText().toString()));
+                    profile.setInsulinSensivity(Integer.parseInt(weight.getText().toString()));
+                    profileManager.saveProfile(profile);
+
+                    FragmentManager fragmentManager = getFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.fragmentContainer, new CalculationFragment());
+                    fragmentTransaction.commit();
+                }
+
             }
         });
 

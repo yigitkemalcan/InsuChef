@@ -1,8 +1,12 @@
 package com.example.insuchef;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.appcompat.widget.SearchView;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -10,15 +14,15 @@ import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,8 +31,19 @@ import java.util.ArrayList;
  */
 public class MealSelectionFragment extends Fragment {
 
-    File jFile;
+    // Filter limits
+    private final int CARB_FILTER_MAX = 10;
+    private final int FAT_FILTER_MAX = 3;
+    private final int PROTEIN_FILTER_MIN = 10;
+
     ArrayList<Food> selectedMeal;
+    private ArrayList<Food> foodList;
+    private boolean lowCarbFiltered;
+    private boolean lowFatFiltered;
+    private boolean highProteinFiltered;
+    private String search;
+
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -70,6 +85,26 @@ public class MealSelectionFragment extends Fragment {
         }
 
         selectedMeal = new ArrayList<>();
+        foodList = new ArrayList<>(MainPage.foodList.foods);
+
+        // Reset all food selection
+        for (Food f : foodList)
+        {
+            f.removeSelected();
+        }
+
+        // Sort by favourites
+        Collections.sort(foodList, new Comparator<Food>() {
+            @Override
+            public int compare(Food f1, Food f2) {
+                return Boolean.compare(f2.isFavourite(), f1.isFavourite());
+            }
+        });
+
+        search = "";
+        lowCarbFiltered = false;
+        lowFatFiltered = false;
+        highProteinFiltered = false;
 
     }
 
@@ -80,11 +115,15 @@ public class MealSelectionFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_meal_selection, container, false);
 
         SearchView searchBar = view.findViewById(R.id.searchBar);
-        ListView foodListView = view.findViewById(R.id.foodList);
 
-        CustomAdapter arrayAdapter = new CustomAdapter(this.getActivity(), R.layout.custom_list_layout, this, MainPage.foodList.foods);
+
+        // List View and Adapter
+        ListView foodListView = view.findViewById(R.id.foodListView);
+        MealSelectionAdapter arrayAdapter = new MealSelectionAdapter(this.getActivity(), R.layout.custom_row_meal_selection, foodList, this);
         foodListView.setAdapter(arrayAdapter);
 
+
+        // Search filter
         searchBar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -93,12 +132,68 @@ public class MealSelectionFragment extends Fragment {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                arrayAdapter.filterSearch(newText);
+                search = newText;
+                arrayAdapter.filterSearch(search);
                 return true;
             }
         });
 
+        // Filter Buttons
+        Button lowCarbFilter = view.findViewById(R.id.filter1);
+        lowCarbFilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                lowCarbFiltered = !lowCarbFiltered;
 
+                if (lowCarbFiltered)
+                {
+                    lowCarbFilter.setBackgroundResource(R.drawable.filter_button_active);
+                }
+                else
+                {
+                    lowCarbFilter.setBackgroundResource(R.drawable.filter_button_inactive);
+                }
+                arrayAdapter.filterSearch(search);
+            }
+        });
+
+        Button lowFatFilter = view.findViewById(R.id.filter2);
+        lowFatFilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                lowFatFiltered = !lowFatFiltered;
+
+                if (lowFatFiltered)
+                {
+                    lowFatFilter.setBackgroundResource(R.drawable.filter_button_active);
+                }
+                else
+                {
+                    lowFatFilter.setBackgroundResource(R.drawable.filter_button_inactive);
+                }
+                arrayAdapter.filterSearch(search);
+            }
+        });
+
+        Button highProteinFilter = view.findViewById(R.id.filter3);
+        highProteinFilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                highProteinFiltered = !highProteinFiltered;
+
+                if (highProteinFiltered)
+                {
+                    highProteinFilter.setBackgroundResource(R.drawable.filter_button_active);
+                }
+                else
+                {
+                    highProteinFilter.setBackgroundResource(R.drawable.filter_button_inactive);
+                }
+                arrayAdapter.filterSearch(search);
+            }
+        });
+
+        // Distribution button
         Button distribution = view.findViewById(R.id.distribution);
         distribution.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,6 +214,159 @@ public class MealSelectionFragment extends Fragment {
 
 
         return view;
+    }
+
+    private class MealSelectionAdapter extends CustomAdapter {
+
+        private MealSelectionFragment mealSelect;
+
+        private MealSelectionAdapter(Context context, int resource, List<Food> objects, MealSelectionFragment frag)
+        {
+            super(context, resource, objects);
+            mealSelect = frag;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            View view = convertView;
+            Drawable d = ResourcesCompat.getDrawable(getResources(), R.drawable.star_icon, null);
+            Food food = getItem(position);
+
+            if (view == null) {
+                LayoutInflater inflater = LayoutInflater.from(mContext);
+                view = inflater.inflate(mResource, parent, false);
+            }
+
+            if (lowCarbFiltered) {
+                if (food.getCarbAmount() > 10) {
+                    view.setVisibility(View.GONE);
+                }
+            }
+
+
+            TextView text = view.findViewById(R.id.textMealSelect);
+            ImageButton infoButton = view.findViewById(R.id.infoButton);
+
+            if (food != null) {
+                text.setText(food.getName());
+            }
+
+            if (food.isFavourite()) {
+                text.setCompoundDrawablesWithIntrinsicBounds(d, null, null, null);
+            }
+            else
+            {
+                text.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+            }
+
+            if(food.isSelected()) {
+                view.setBackgroundResource(R.drawable.item_background);
+            }
+            else {
+                view.setBackground(null);
+            }
+
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    food.toggleSelected();
+
+                    if (food.isSelected())
+                    {
+                        food.addToMeal(mealSelect);
+                    }
+                    else
+                    {
+                        food.removeFromMeal(mealSelect);
+                    }
+
+                    TextView selectionCount = mealSelect.getView().findViewById(R.id.selectionText);
+
+                    if (mealSelect.selectedMeal.size() != 0)
+                    {
+                        String s = "Food Selected: " + mealSelect.selectedMeal.size();
+                        selectionCount.setText(s);
+                    }
+                    else
+                    {
+                        selectionCount.setText("");
+                    }
+
+                    notifyDataSetChanged();
+                }
+            });
+
+            infoButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(mContext);
+                    dialogBuilder.setTitle("Food Information");
+                    dialogBuilder.setMessage(food.toString());
+                    AlertDialog dialog = dialogBuilder.create();
+                    dialog.setCanceledOnTouchOutside(true);
+                    dialog.setCancelable(true);
+                    dialog.show();
+                }
+            });
+
+            return view;
+        }
+
+        // Override filter method to implement food filters besides the search bar filter
+        @Override
+        public void filterSearch(String search) {
+            filtered.clear();
+
+            if (search.isEmpty())
+            {
+                for (Food f : original) {
+                    if (this.isItemFiltered(f))
+                    {
+                        filtered.add(f);
+                    }
+                }
+            }
+            else
+            {
+                String constraint = search.toLowerCase();
+
+                for (Food food : original)
+                {
+                    if (food.getName().toLowerCase().contains(constraint) && this.isItemFiltered(food))
+                    {
+                        filtered.add(food);
+                    }
+                }
+            }
+
+            notifyDataSetChanged();
+        }
+
+        private boolean isItemFiltered(Food food) {
+
+            if (lowCarbFiltered) {
+                if (food.getCarbAmount() > CARB_FILTER_MAX) {
+                    return false;
+                }
+            }
+
+            if (lowFatFiltered) {
+                if (food.getFatAmount() > FAT_FILTER_MAX) {
+                    return false;
+                }
+            }
+
+            if (highProteinFiltered) {
+                if (food.getProteinAmount() < PROTEIN_FILTER_MIN) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
     }
 
 }

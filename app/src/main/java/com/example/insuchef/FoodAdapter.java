@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -18,7 +17,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodHolder> {
     private ArrayList<Food> foods;
@@ -46,7 +44,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodHolder> {
     @NonNull
     @Override
     public FoodHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item,parent,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.distribution_item,parent,false);
         return new FoodHolder(view);
     }
 
