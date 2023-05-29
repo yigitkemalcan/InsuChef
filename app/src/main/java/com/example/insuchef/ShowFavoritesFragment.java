@@ -122,7 +122,7 @@ public class ShowFavoritesFragment extends Fragment {
             TextView text = view.findViewById(R.id.customListLayout);
 
             if (food != null) {
-                text.setText(food.toString());
+                text.setText(food.getName());
                 text.setCompoundDrawablesWithIntrinsicBounds(d, null, null, null);
             }
 
