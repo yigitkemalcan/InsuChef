@@ -120,7 +120,10 @@ public class ProfileFragment extends Fragment {
         updateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if (Integer.parseInt(breakfast.getText().toString()) < 0 || Integer.parseInt(lunch.getText().toString()) < 0 || Integer.parseInt(dinner.getText().toString()) < 0 || Integer.parseInt(targetBloodSugar.getText().toString()) < 0 || Integer.parseInt(insulinSensitivityFactor.getText().toString()) < 0 || Float.parseFloat(weight.getText().toString()) < 0 ){
+                    Toast.makeText(getContext(),"Information is wrong!", Toast.LENGTH_SHORT).show();
+                }
+                else{
                 profile.setWeight(Float.parseFloat(weight.getText().toString()));
                 if (!TextUtils.isEmpty(breakfast.getText().toString())) {
                     profile.setBreakfastRestriction(Integer.parseInt(breakfast.getText().toString()));
@@ -143,6 +146,8 @@ public class ProfileFragment extends Fragment {
                 //TODO: Set also insulin sensitivity factor and we have to take different isf for 3 meals at the beginning
                 profileManager.saveProfile(profile);
                 Toast.makeText(getContext(),"Updated!", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
         return view;

@@ -71,14 +71,15 @@ public class CalculationFragment extends Fragment {
         calc.setBloodSugar(profile.getInstantBloodSugar());
         calc.setIsf(profile.getInsulinSensivity());
         calc.setRatio(profile.getCarbInsulinRatio());
-        calc.setCarbCount(100);
+        double carb = 100;
+        calc.setCarbCount(carb);
         double bolus = calc.calculateBolus();
 
         TextView carbResult = view.findViewById(R.id.carbResult);
         TextView insulinResult = view.findViewById(R.id.insulinResult);
         TextView timeResult = view.findViewById(R.id.timeResult);
 
-        carbResult.setText(calc.getCarbResult(100));
+        carbResult.setText(calc.getCarbResult(carb));
         insulinResult.setText(calc.getInsulinResult(bolus));
         timeResult.setText(calc.getTimeResult(bolus));
 

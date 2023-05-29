@@ -81,7 +81,7 @@ public class InstantInformationFragment extends Fragment {
         EditText weight = view.findViewById(R.id.weight);
 
         targetSugar.setText(String.valueOf(profile.getTargetBloodSugar()));
-        weight.setText(String.valueOf(profile.getWeight()));
+        weight.setText(String.valueOf(profile.getInsulinSensivity()));
 
         Button calculate = view.findViewById(R.id.calculate);
         calculate.setOnClickListener(new View.OnClickListener() {
@@ -91,11 +91,14 @@ public class InstantInformationFragment extends Fragment {
                 if (TextUtils.isEmpty(instantSugar.getText().toString()) || TextUtils.isEmpty(carbRatio.getText().toString()) || TextUtils.isEmpty(targetSugar.getText().toString()) || TextUtils.isEmpty(weight.getText().toString()) ){
                     Toast.makeText(getContext(), "Information is missing", Toast.LENGTH_SHORT).show();
                 }
+                else if (Integer.parseInt(instantSugar.getText().toString()) <= 0 || Integer.parseInt(carbRatio.getText().toString()) <= 0 || Integer.parseInt(targetSugar.getText().toString()) <= 0 || Integer.parseInt(weight.getText().toString()) <= 0 ){
+                    Toast.makeText(getContext(), "Information is wrong", Toast.LENGTH_SHORT).show();
+                }
                 else {
                     profile.setInstantBloodSugar(Integer.parseInt(instantSugar.getText().toString()));
                     profile.setCarbInsulinRatio(Integer.parseInt(carbRatio.getText().toString()));
                     profile.setTargetBloodSugar(Integer.parseInt(targetSugar.getText().toString()));
-                    profile.setWeight(Double.parseDouble(weight.getText().toString()));
+                    profile.setInsulinSensivity(Integer.parseInt(weight.getText().toString()));
                     profileManager.saveProfile(profile);
 
                     FragmentManager fragmentManager = getFragmentManager();
