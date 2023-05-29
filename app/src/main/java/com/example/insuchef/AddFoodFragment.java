@@ -93,7 +93,13 @@ public class AddFoodFragment extends Fragment {
                         food.setFatAmount(Double.parseDouble(fatPerEdTxt.getText().toString()));
                         profile.addFoodToAddedFoods(food);
                         profileManager.saveProfile(profile);
-                        MainPage.foodList.foods.add(food);
+                        for (int i = 0; i < MainPage.foodList.foods.size(); i++){
+                            boolean isPosition = false;
+                            if (food.getName().compareTo(MainPage.foodList.foods.get(i).getName()) < 0){
+                                MainPage.foodList.foods.add(i, food);
+                                break;
+                            }
+                        }
                         Toast.makeText(getContext(), "Food added", Toast.LENGTH_SHORT).show();
 
                 }

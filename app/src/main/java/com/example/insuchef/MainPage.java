@@ -41,7 +41,15 @@ public class MainPage extends AppCompatActivity {
         profile = profileManager.getProfile();
         ArrayList<Food> added = profile.getAddedFoods();
         for (Food f : added){
-            foodList.foods.add(f);
+            for (int i = 0; i < foodList.foods.size(); i++){
+                boolean isPosition = false;
+                if (f.getName().compareTo(foodList.foods.get(i).getName()) < 0){
+                    foodList.foods.add(i, f);
+                    break;
+                }
+
+
+            }
         }
         File jFile = new File(getFilesDir(), "food.json");
 
