@@ -17,7 +17,7 @@
             android:layout_height="120dp"
             android:background="@color/green"
             android:gravity="center"
-            android:text="InsuChef"
+            android:text="Show Favorites"
             android:textColor="#FFFFFF"
             android:textSize="36sp"
             android:textStyle="bold"

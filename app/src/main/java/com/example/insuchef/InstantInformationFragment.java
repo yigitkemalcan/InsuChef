@@ -89,10 +89,10 @@ public class InstantInformationFragment extends Fragment {
             public void onClick(View v) {
 
                 if (TextUtils.isEmpty(instantSugar.getText().toString()) || TextUtils.isEmpty(carbRatio.getText().toString()) || TextUtils.isEmpty(targetSugar.getText().toString()) || TextUtils.isEmpty(weight.getText().toString()) ){
-                    Toast.makeText(getContext(), "Information is missing", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Information is missing!", Toast.LENGTH_SHORT).show();
                 }
                 else if (Integer.parseInt(instantSugar.getText().toString()) <= 0 || Integer.parseInt(carbRatio.getText().toString()) <= 0 || Integer.parseInt(targetSugar.getText().toString()) <= 0 || Integer.parseInt(weight.getText().toString()) <= 0 ){
-                    Toast.makeText(getContext(), "Information is wrong", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Information is wrong!", Toast.LENGTH_SHORT).show();
                 }
                 else {
                     profile.setInstantBloodSugar(Integer.parseInt(instantSugar.getText().toString()));
