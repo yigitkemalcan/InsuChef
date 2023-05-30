@@ -84,24 +84,34 @@ public class AddFoodFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (TextUtils.isEmpty(foodNameEdTxt.getText().toString()) || TextUtils.isEmpty(carbPerEdTxt.getText().toString()) || TextUtils.isEmpty(fatPerEdTxt.getText().toString())){
-                    Toast.makeText(getContext(), "Information is missing", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Information is missing!", Toast.LENGTH_SHORT).show();
                 }
                 else {
                         Food food = new Food();
                         food.setName(foodNameEdTxt.getText().toString());
                         food.setCarbAmount(Double.parseDouble(carbPerEdTxt.getText().toString()));
                         food.setFatAmount(Double.parseDouble(fatPerEdTxt.getText().toString()));
-                        profile.addFoodToAddedFoods(food);
-                        profileManager.saveProfile(profile);
+                        boolean isThere = false;
                         for (int i = 0; i < MainPage.foodList.foods.size(); i++){
-                            boolean isPosition = false;
-                            if (food.getName().compareTo(MainPage.foodList.foods.get(i).getName()) < 0){
-                                MainPage.foodList.foods.add(i, food);
-                                break;
+                            if (food.getName().equalsIgnoreCase(MainPage.foodList.foods.get(i).getName())){
+                                isThere = true;
                             }
                         }
-                        Toast.makeText(getContext(), "Food added", Toast.LENGTH_SHORT).show();
+                        if (isThere){
+                            Toast.makeText(getContext(), "Food already added!", Toast.LENGTH_SHORT).show();
+                        }
+                        else {
+                            profile.addFoodToAddedFoods(food);
+                            profileManager.saveProfile(profile);
+                            for (int i = 0; i < MainPage.foodList.foods.size(); i++){
 
+                                if (food.getName().compareTo(MainPage.foodList.foods.get(i).getName()) < 0){
+                                    MainPage.foodList.foods.add(i, food);
+                                    break;
+                                }
+                            }
+                            Toast.makeText(getContext(), "Food added!", Toast.LENGTH_SHORT).show();
+                        }
                 }
             }
         });
