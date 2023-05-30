@@ -1,0 +1,20 @@
+*07.03.2023
+	On this day, we came together to discuss the requirements stage report. We shared the parts that we were going to add to the report inside the group. After every member was done with their own part, we collected them in the project report template and uploaded the report onto Moodle on 9 March.
+*11.03.2023
+	On this day, we gathered to make our requirements stage presentation slide. After we were done with the presentation, we recorded the requirements stage presentation video. After the second try, we achieved our goal and uploaded both the slide and video onto Moodle on 12 March. 
+*30.03.2023
+	On this day, we came together to review the requirements stage report feedback that we got from our TA. After we talked about it, we made changes in the report according to the feedback.
+*22.04.2023
+	On this day, we talked about the last details of the requirements stage report. After we concluded our discussion, we uploaded the latest version of the report onto Moodle on 23 April.
+*23.04.2023
+	On this day, we came together to make our UI design. We discussed how our application should look and made some general designs about it. We also searched how to make better UI designs using websites.
+*25.04.2023
+	On this day, we created our UI presentation slide. We added the design photos to the slides, and every group member wrote a short paragraph that explained the pages on our application. After we finished our presentation, we uploaded it onto Moodle on the same day.
+*28.04.2023
+	On this day, we designed our UI design report. We used the same design photos that we added to the UI presentation but changed the explanations of the pages by adding indicators and more detail. After every group member finished his/her part, we brought them together and uploaded the UI presentation onto Moodle on 29 April.
+*07.05.2023
+	On this day, we gathered as a group to share the parts that we were going to be responsible for in the application. We shared the tasks and pages of our application so everybody could start implementation. 
+*18.05.2023
+	On this day, we came together to talk about the improvements in our application. Additionally, we discussed some of the problems that occurred in the application and solved them. 
+*31.05.2023
+	On this day, we concluded our project. We made our presentation slide and recorded the demo video in order to present it in the lab. At the same time we talked about the other final requirements of our project.	

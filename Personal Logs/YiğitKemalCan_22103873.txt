@@ -1,0 +1,12 @@
+*Previous Weeks
+	I tried to learn how to use Android Studio. In order to do that, I watched different videos on YouTube and read some websites. Also, I tried to design some basic XML files using Android Studio and create very basic applications as challenges.
+*10.05.2023-14.05.2023
+	During these times, I created a new repository in GitHub and a new project in Android Studio. I implemented the main activity of our application and created the fragments that were going to be implemented. Additionally, I implemented the bottom navigation bar in order for us to switch from fragments. 
+*15.05.2023-20.05.2023
+	During these times, I designed XML files of different fragments such as the main fragment, profile fragment, and instant information fragment. I implemented the backend parts of these fragments and was able to add the necessary features.
+*21.05.2023-25.05.2023
+	During these times, I designed XML of the calculation and add food fragments. I worked on the profile manager class that was already implemented and add some necessary materials to it in order to save the user data and use this data in different fragments.
+*26.05.2023-28.05.2023
+	During these times, I implemented the backend parts of the previously designed calculation and add food fragments. Moreover, I worked on how to save added foods by using Gson dependency. I also worked on how to prevent wrong or missing inputs from the user.
+*29.05.2023-31.05.2023
+	During these times, I made little changes both on the GUI parts and backend parts of the application to make it more complete. For instance, I changed some of the names of the pages, changed the bottom navigation bar item photos, and changed little parts in XML files. At the end, I implemented some methods to prevent possible problems such as adding one food more than once.
