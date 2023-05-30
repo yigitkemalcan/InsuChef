@@ -1,5 +1,6 @@
 package com.example.insuchef;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -93,7 +94,6 @@ public class DistributionFragment extends Fragment {
         totalCarbEditText = view.findViewById(R.id.totalCarbEditText);
         recyclerView = view.findViewById(R.id.recyclerView);
         total = view.findViewById(R.id.total);
-
         adapter = new FoodAdapter(Food.setData(this.meal),requireContext());
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager manager = new LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false);
@@ -112,12 +112,11 @@ public class DistributionFragment extends Fragment {
         if(carbRestriction!=-1){
             totalCarbEditText.setText(String.valueOf(carbRestriction));
             //adapter.distributeFoods(carbRestriction);
-            double num = adapter.getTotalCarbohydrates();
-
-            DecimalFormat df = new DecimalFormat("#.##");
-            total.setText("Total Carbs: "+df.format(num));
 
         }
+        total.setTextColor(Color.BLACK);
+        total.setText("Total Carbs: 0");
+
         //checked
         totalCarbEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -136,11 +135,8 @@ public class DistributionFragment extends Fragment {
                     carbRestriction = -1;
                     //adapter.makeMinusOne();
                 }
-                if (adapter.getTotalCarbohydrates() > carbRestriction) {
-                    //food.setGram((int)food.getGramAmountRespectToCarb(carbRestriction-Calc.calculateCarbs(adapter.getFoods())));
-                    //Toast.makeText(requireContext(), "Carb limit exceeded!", Toast.LENGTH_SHORT).show();
+                controlCarbLimit();
 
-                }
 
 
                 /*if(carbRestriction!=-1 ){
@@ -209,10 +205,8 @@ public class DistributionFragment extends Fragment {
                     adapter.setFoods(newArr);
                     System.out.println("here");
                 //}
-                double num = adapter.getTotalCarbohydrates();
+                controlCarbLimit();
 
-                DecimalFormat df = new DecimalFormat("#.##");
-                total.setText("Total Carbs: "+df.format(num));
             }
 
             @Override
@@ -261,21 +255,14 @@ public class DistributionFragment extends Fragment {
                         food.setGram(newGram);
                         adapter.notifyItemChanged(position);
                     }
-                    if (adapter.getTotalCarbohydrates() > carbRestriction) {
-                        //food.setGram((int)food.getGramAmountRespectToCarb(carbRestriction-Calc.calculateCarbs(adapter.getFoods())));
-                        Toast.makeText(requireContext(), "Carb limit exceeded!", Toast.LENGTH_SHORT).show();
-
-                    }
+                    controlCarbLimit();
 
                 }
                 else{
                     food.setGram(-1);
+                    controlCarbLimit();
                 }
-                double num = adapter.getTotalCarbohydrates();
-
-                DecimalFormat df = new DecimalFormat("#.##");
-                total.setText("Total Carbs: "+df.format(num));
-                adapter.setListenerActive(true);
+                //adapter.setListenerActive(true);
                 return 3;
 
             }
@@ -304,6 +291,24 @@ public class DistributionFragment extends Fragment {
     }
     public ArrayList<Food> getMeal(){
         return this.meal;
+    }
+    public void controlCarbLimit(){
+        if (carbRestriction!=-1 && adapter.getTotalCarbohydrates() > carbRestriction) {
+            //food.setGram((int)food.getGramAmountRespectToCarb(carbRestriction-Calc.calculateCarbs(adapter.getFoods())));
+            double num = adapter.getTotalCarbohydrates();
+
+            DecimalFormat df = new DecimalFormat("#.##");
+            double difference = adapter.getTotalCarbohydrates()-carbRestriction;
+            total.setText("Total Carbs: "+df.format(num)+" ("+df.format(difference)+" carbs extra!)");
+            total.setTextColor(Color.RED);
+        }
+        else{
+            total.setTextColor(Color.BLACK);
+            double num = adapter.getTotalCarbohydrates();
+
+            DecimalFormat df = new DecimalFormat("#.##");
+            total.setText("Total Carbs: "+df.format(num));
+        }
     }
 
 }

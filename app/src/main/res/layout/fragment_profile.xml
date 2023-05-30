@@ -69,7 +69,7 @@
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/guideline8"
             app:layout_constraintTop_toBottomOf="@+id/insulinSensivityFactorEdTxt" />
-
+        
         <Button
             android:id="@+id/showFavorites"
             android:layout_width="140dp"
