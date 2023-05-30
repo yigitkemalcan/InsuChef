@@ -2,6 +2,7 @@ package com.example.insuchef;
 
 import android.widget.Toast;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 // this class is for all insulin calculation methods
@@ -197,12 +198,12 @@ public class Calc{
     }
 
     public String getInsulinResult (double bolus){
-        String str = "You need to inject " + (bolus) + " mg/dl insulin.";
+        String str = "You need to inject " + new DecimalFormat("#.##").format(bolus) + " mg/dl insulin.";
         return str;
     }
 
     public String getCarbResult (double carbCount){
-        String str = "Your total carbohydrate consumption is " + carbCount + "gr.";
+        String str = "Your total carbohydrate consumption is " + new DecimalFormat("#.##").format(carbCount) + "gr.";
         return str;
     }
 }
