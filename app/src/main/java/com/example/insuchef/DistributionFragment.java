@@ -275,7 +275,7 @@ public class DistributionFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 totCarb = adapter.getTotalCarbohydrates();
-                if (totCarb > carbRestriction){}
+                if (carbRestriction!=-1 && totCarb > carbRestriction){}
                 else{
                     FragmentManager fragmentManager = getFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
