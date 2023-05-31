@@ -38,15 +38,14 @@ public class ProfileManager {
         editor.putInt(INSULIN_SENSIVITY, profile.getInsulinSensivity());
         editor.putFloat(KEY_WEIGHT, (float) profile.getWeight());
         editor.putInt(KEY_BREAKFAST_RESTRICTION, profile.getBreakfastRestriction());
-        if(profile.getBreakfastRestriction()!=0){
-            editor.putInt(KEY_LUNCH_RESTRICTION, profile.getLunchRestriction());
-        }
-        if(profile.getLunchRestriction()!=0) {
-            editor.putInt(KEY_DINNER_RESTRICTION, profile.getDinnerRestriction());
-        }
-        if(profile.getDinnerRestriction()!=0) {
-            editor.putInt(KEY_TARGET_BLOOD_SUGAR, profile.getTargetBloodSugar());
-        }
+
+        editor.putInt(KEY_LUNCH_RESTRICTION, profile.getLunchRestriction());
+
+
+        editor.putInt(KEY_DINNER_RESTRICTION, profile.getDinnerRestriction());
+
+        editor.putInt(KEY_TARGET_BLOOD_SUGAR, profile.getTargetBloodSugar());
+
         editor.putInt(KEY_RATIO, profile.getCarbInsulinRatio());
         // Store the favourites String ArrayList by using the Gson library
         Gson gson = new Gson();

@@ -120,7 +120,7 @@ public class ProfileFragment extends Fragment {
         updateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!breakfast.getText().toString().equals("") && Integer.parseInt(breakfast.getText().toString()) < 0 || !lunch.getText().toString().equals("") && Integer.parseInt(lunch.getText().toString()) < 0 || !dinner.getText().toString().equals("") && Integer.parseInt(dinner.getText().toString()) < 0 || Integer.parseInt(targetBloodSugar.getText().toString()) < 0 || Integer.parseInt(insulinSensitivityFactor.getText().toString()) < 0 || Float.parseFloat(weight.getText().toString()) < 0 ){
+                if (!breakfast.getText().toString().equals("") && Integer.parseInt(breakfast.getText().toString()) < -1 || !lunch.getText().toString().equals("") && Integer.parseInt(lunch.getText().toString()) < -1 || !dinner.getText().toString().equals("") && Integer.parseInt(dinner.getText().toString()) < -1 || Integer.parseInt(targetBloodSugar.getText().toString()) < 0 || Integer.parseInt(insulinSensitivityFactor.getText().toString()) < 0 || Float.parseFloat(weight.getText().toString()) < 0 ){
                     Toast.makeText(getContext(),"Information is wrong!", Toast.LENGTH_SHORT).show();
                 }
                 else{
