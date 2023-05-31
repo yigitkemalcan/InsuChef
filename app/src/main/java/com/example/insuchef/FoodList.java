@@ -6,11 +6,12 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class FoodList {
 
-    public ArrayList<Food> foods;
+    private ArrayList<Food> foods;
     private Profile profile;
 
     FoodList(File file, Context context) throws Exception {
@@ -51,4 +52,7 @@ public class FoodList {
 
     }
 
+    public ArrayList<Food> getFoods() {
+        return this.foods;
+    }
 }

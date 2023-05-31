@@ -19,6 +19,7 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -36,7 +37,7 @@ public class MealSelectionFragment extends Fragment {
     private final int FAT_FILTER_MAX = 3;
     private final int PROTEIN_FILTER_MIN = 10;
 
-    ArrayList<Food> selectedMeal;
+    private ArrayList<Food> selectedMeal;
     private ArrayList<Food> foodList;
     private boolean lowCarbFiltered;
     private boolean lowFatFiltered;
@@ -85,7 +86,7 @@ public class MealSelectionFragment extends Fragment {
         }
 
         selectedMeal = new ArrayList<>();
-        foodList = new ArrayList<>(MainPage.foodList.foods);
+        foodList = new ArrayList<>(MainPage.foodList.getFoods());
 
         // Reset all food selection
         for (Food f : foodList)
@@ -216,6 +217,10 @@ public class MealSelectionFragment extends Fragment {
         return view;
     }
 
+    public ArrayList<Food> getSelectedMeal() {
+        return this.selectedMeal;
+    }
+
     private class MealSelectionAdapter extends CustomAdapter {
 
         private MealSelectionFragment mealSelect;
@@ -242,7 +247,6 @@ public class MealSelectionFragment extends Fragment {
                     view.setVisibility(View.GONE);
                 }
             }
-
 
             TextView text = view.findViewById(R.id.textMealSelect);
             ImageButton infoButton = view.findViewById(R.id.infoButton);

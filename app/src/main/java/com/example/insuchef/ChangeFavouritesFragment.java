@@ -75,7 +75,7 @@ public class ChangeFavouritesFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
-        list = new ArrayList<>(MainPage.foodList.foods);
+        list = new ArrayList<>(MainPage.foodList.getFoods());
         Collections.sort(list, new Comparator<Food>() {
             @Override
             public int compare(Food f1, Food f2) {

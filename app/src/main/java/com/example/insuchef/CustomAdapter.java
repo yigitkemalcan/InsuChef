@@ -17,6 +17,7 @@ public class CustomAdapter extends ArrayAdapter<Food> {
     protected ArrayList<Food> filtered;
 
     public CustomAdapter(Context context, int resource, List<Food> objects) {
+
         super(context, resource, objects);
         mContext = context;
         mResource = resource;

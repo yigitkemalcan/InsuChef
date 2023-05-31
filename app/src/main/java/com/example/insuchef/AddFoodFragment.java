@@ -92,8 +92,8 @@ public class AddFoodFragment extends Fragment {
                         food.setCarbAmount(Double.parseDouble(carbPerEdTxt.getText().toString()));
                         food.setFatAmount(Double.parseDouble(fatPerEdTxt.getText().toString()));
                         boolean isThere = false;
-                        for (int i = 0; i < MainPage.foodList.foods.size(); i++){
-                            if (food.getName().equalsIgnoreCase(MainPage.foodList.foods.get(i).getName())){
+                        for (int i = 0; i < MainPage.foodList.getFoods().size(); i++){
+                            if (food.getName().equalsIgnoreCase(MainPage.foodList.getFoods().get(i).getName())){
                                 isThere = true;
                             }
                         }
@@ -103,10 +103,10 @@ public class AddFoodFragment extends Fragment {
                         else {
                             profile.addFoodToAddedFoods(food);
                             profileManager.saveProfile(profile);
-                            for (int i = 0; i < MainPage.foodList.foods.size(); i++){
+                            for (int i = 0; i < MainPage.foodList.getFoods().size(); i++){
 
-                                if (food.getName().compareTo(MainPage.foodList.foods.get(i).getName()) < 0){
-                                    MainPage.foodList.foods.add(i, food);
+                                if (food.getName().compareTo(MainPage.foodList.getFoods().get(i).getName()) < 0){
+                                    MainPage.foodList.getFoods().add(i, food);
                                     break;
                                 }
                             }

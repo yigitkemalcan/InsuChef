@@ -18,9 +18,7 @@ public class ProfileManager {
     private static final String KEY_DINNER_RESTRICTION = "dinnerRestriction";
     private static final String KEY_TARGET_BLOOD_SUGAR = "targetBloodSugar";
     private static final String KEY_FAVOURITES = "favourites";
-
     private static final String KEY_ADDED_FOODS = "addedFoods";
-
     private static final String KEY_RATIO = "ratio";
 
     private SharedPreferences sharedPreferences;
