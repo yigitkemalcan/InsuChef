@@ -41,10 +41,10 @@ public class MainPage extends AppCompatActivity {
         profile = profileManager.getProfile();
         ArrayList<Food> added = profile.getAddedFoods();
         for (Food f : added){
-            for (int i = 0; i < foodList.foods.size(); i++){
+            for (int i = 0; i < foodList.getFoods().size(); i++){
                 boolean isPosition = false;
-                if (f.getName().compareTo(foodList.foods.get(i).getName()) < 0){
-                    foodList.foods.add(i, f);
+                if (f.getName().compareTo(foodList.getFoods().get(i).getName()) < 0){
+                    foodList.getFoods().add(i, f);
                     break;
                 }
 

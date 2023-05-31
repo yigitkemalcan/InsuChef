@@ -15,7 +15,6 @@ public class Food implements Parcelable {
     private double fatAmount;
     private double calories;
     private boolean isSelected;
-
     private boolean isFavourite;
     private boolean isLocked = false;
     private int gram=-1;
@@ -94,12 +93,12 @@ public class Food implements Parcelable {
 
     public void addToMeal(MealSelectionFragment mealFrag) {
 
-        mealFrag.selectedMeal.add(this);
+        mealFrag.getSelectedMeal().add(this);
     }
 
     public void removeFromMeal(MealSelectionFragment mealFrag) {
 
-        mealFrag.selectedMeal.remove(this);
+        mealFrag.getSelectedMeal().remove(this);
     }
 
     @Override

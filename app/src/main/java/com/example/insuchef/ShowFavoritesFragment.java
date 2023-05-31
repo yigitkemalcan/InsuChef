@@ -69,7 +69,7 @@ public class ShowFavoritesFragment extends Fragment {
 
         favourites = new ArrayList<>();
 
-        for (Food f : MainPage.foodList.foods) {
+        for (Food f : MainPage.foodList.getFoods()) {
             if (f.isFavourite()) {
                 favourites.add(f);
             }
