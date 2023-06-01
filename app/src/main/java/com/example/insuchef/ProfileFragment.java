@@ -120,11 +120,14 @@ public class ProfileFragment extends Fragment {
         updateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!breakfast.getText().toString().equals("") && Integer.parseInt(breakfast.getText().toString()) < -1 || !lunch.getText().toString().equals("") && Integer.parseInt(lunch.getText().toString()) < -1 || !dinner.getText().toString().equals("") && Integer.parseInt(dinner.getText().toString()) < -1 || Integer.parseInt(targetBloodSugar.getText().toString()) < 0 || Integer.parseInt(insulinSensitivityFactor.getText().toString()) < 0 || Float.parseFloat(weight.getText().toString()) < 0 ){
+                if (!breakfast.getText().toString().equals("") && Integer.parseInt(breakfast.getText().toString()) < -1 || !lunch.getText().toString().equals("") && Integer.parseInt(lunch.getText().toString()) < -1 || !dinner.getText().toString().equals("") && Integer.parseInt(dinner.getText().toString()) < -1 || !targetBloodSugar.getText().toString().equals("") && Integer.parseInt(targetBloodSugar.getText().toString()) < 0 || !insulinSensitivityFactor.getText().toString().equals("") && Integer.parseInt(insulinSensitivityFactor.getText().toString()) < 0 || !weight.getText().toString().equals("") && Float.parseFloat(weight.getText().toString()) < 0 ){
                     Toast.makeText(getContext(),"Information is wrong!", Toast.LENGTH_SHORT).show();
                 }
                 else{
-                profile.setWeight(Float.parseFloat(weight.getText().toString()));
+                if (!TextUtils.isEmpty(weight.getText().toString())){
+                    profile.setWeight(Float.parseFloat(weight.getText().toString()));
+                }
+                else {}
                 if (!TextUtils.isEmpty(breakfast.getText().toString())) {
                     profile.setBreakfastRestriction(Integer.parseInt(breakfast.getText().toString()));
                 } else {
@@ -140,9 +143,14 @@ public class ProfileFragment extends Fragment {
                 } else {
                     profile.setDinnerRestriction(-1);
                 }
-
-                profile.setTargetBloodSugar(Integer.parseInt(targetBloodSugar.getText().toString()));
-                profile.setInsulinSensivity(Integer.parseInt(insulinSensitivityFactor.getText().toString()));
+                if (!TextUtils.isEmpty(targetBloodSugar.getText().toString())){
+                    profile.setTargetBloodSugar(Integer.parseInt(targetBloodSugar.getText().toString()));
+                }
+                else {}
+                if (!TextUtils.isEmpty(insulinSensitivityFactor.getText().toString())){
+                    profile.setInsulinSensivity(Integer.parseInt(insulinSensitivityFactor.getText().toString()));
+                }
+                else {}
                 //TODO: Set also insulin sensitivity factor and we have to take different isf for 3 meals at the beginning
                 profileManager.saveProfile(profile);
                 Toast.makeText(getContext(),"Updated!", Toast.LENGTH_SHORT).show();
