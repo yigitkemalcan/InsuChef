@@ -2,10 +2,10 @@
 InsuChef is an application designed to help people with diabetes. InsuChef will enable users to keep track of their daily carbohydrate consumption and it will also calculate the appropraite insulin amount that needs to be injected and when. With it’s simple and user-friendly interface, InsuChef offers an easier experience with managing diabetes. 
 
 ## The Contributors:
-Emine Fidan
-Umay Dündar
-Edip Emre Dönger
-Elif Ercan
+Emine Fidan,
+Umay Dündar,
+Edip Emre Dönger,
+Elif Ercan,
 Yiğit Kemal Can
 
 ## How to run the program:
