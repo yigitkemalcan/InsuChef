@@ -1,0 +1,19 @@
++ Earlier Weeks (30.01.2023 - 14.05.2023)
+---> Worked with teammates on design and reports (Requirements, Detailed Design, UI Design), brainstormed
+ideas for new app functionalities. Also learned/studied Android Studio by reading and doing some simple personal projects
+with Android Studio.
+
++ 15.05.2023 - 21.05.2023
+---> Started implementing the project. Learned some more about Android Studio, designed class structures and developed ideas
+for some methods and the overall app structure.
+
++ 22.05.2023 - 28.05.2023
+---> Created the Food class, FoodList class and implemented meal selection and favourites. Created CustomAdapter class to populate
+ListViews with custom Food objects. Used the data retrieved from the internet to create Food objects and store them in a FoodList.
+Created the Launch Screen. Designed the XML layout file for MealSelectionFragment. Created a search bar to easily search through the lists.
+Implemented the functionality to choose some foods as favourite, made favourite foods show at the top of the list and saved the favourites
+into local storage to remember them. Also fixed some errors and bugs regarding the GetData and ReadFile classes.
+
++ 29.05.2023 - 04.06.2023
+---> Added some filters to the Meal Selection screen to easily filter out some foods from the list. Added an information button 
+next to each food in the list to access detailed nutritional information. 
