@@ -1,0 +1,11 @@
+*13.04.2023-20.04.2023
+	I started to search about how to get data from databases. I watched some videos and tried to learn from the examples. 
+*02.05.2023-09.05.2023
+	I've started to code my classes.
+*10.05.2023-15.05.2023
+	I kept working on my classes but i also dealt with some errors in my codes and did some improvments.
+*16.05.2023-25.05.2023
+	I again dealt with some errors which we faced while we were trying to combine everything.
+*26.05.2023-31.05.2023
+	I made some tiny changes and fixations.
+	
