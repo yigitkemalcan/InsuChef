@@ -1,0 +1,12 @@
++ Earlier Weeks (30.01.2023 - 14.05.2023)
+---> We decided to do a diabetes app with my teammates. I talked to a diabetes dietitian to evaluate the idea of ​​the app. I consulted about which database to use and what is needed.
+
++ 10.05.2023 - 28.05.2023
+---> I tried to clarify how an algorithm will work on the application's distribution screen. I experimented with this in a separate project. I learned how recycler view works in android studio.
+
++ 28.05.2023 - 30.05.2023
+---> I uploaded my work on the distribution page and merged it into main project. I wrote the FoodAdapter, ProfileManager classes and added the necessary methods for Calculation to the Calc class. For some additional features, I wrote extra methods that distribute foods with different algorithms in the FoodAdapter class.
+
+
++ 30.05.2023 - 03.06.2023
+---> I added the code that gives warning on the limit exceeding and fixed the small bugs that occurred throughout the application.
